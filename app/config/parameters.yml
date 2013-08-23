@@ -1,0 +1,14 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: fopac
+    database_user: fopac
+    database_password: fopac
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    secret: c1a56fbbf58ecf42175d71010fa5b88d81
+    database_path: null

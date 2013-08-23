@@ -1,0 +1,368 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"n",
+				"name"
+			],
+			[
+				"st",
+				"static_pages"
+			],
+			[
+				"la",
+				"layouts"
+			],
+			[
+				"ren",
+				"render"
+			],
+			[
+				"ti",
+				"title"
+			],
+			[
+				"fi",
+				"find"
+			],
+			[
+				"p",
+				"project"
+			],
+			[
+				"w",
+				"when	when …"
+			],
+			[
+				"fl",
+				"flash	flash[…]"
+			],
+			[
+				"P",
+				"Project"
+			],
+			[
+				"gr",
+				"group"
+			],
+			[
+				"mo",
+				"mod	module .. end"
+			],
+			[
+				"re",
+				"req	require \"..\""
+			],
+			[
+				"File",
+				"File	File.open(\"..\") { |file| .. }"
+			],
+			[
+				"su",
+				"subject"
+			],
+			[
+				"cl",
+				"cla	class .. end"
+			],
+			[
+				"r",
+				"run_command"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 390.0,
+		"selected_items":
+		[
+			[
+				"m",
+				"Set Syntax: Markdown"
+			],
+			[
+				"i",
+				"Package Control: Install Package"
+			],
+			[
+				"sass",
+				"Set Syntax: Sass"
+			],
+			[
+				"ru",
+				"Set Syntax: Ruby"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"ma",
+				"Set Syntax: Markdown"
+			]
+		],
+		"width": 545.0
+	},
+	"console":
+	{
+		"height": 125.0,
+		"history":
+		[
+			"view.lines((4,23))",
+			"view.lines(2)",
+			"view.lines(2,4)",
+			"view.lines([2,4])",
+			"view.lines({\"line\":5})",
+			"view.lines(4)",
+			"view.line(4)",
+			"view.line(3)",
+			"view.line(2)",
+			"view.line(0)",
+			"view.line(1)",
+			"view.line({\"line\":5})",
+			"view.line(5)",
+			"while i<31:",
+			"i = 1",
+			"is_eof()",
+			"EOF()",
+			"view.number_of_lines()",
+			"view.lines()",
+			"view.lines",
+			"view.size()",
+			"view.size",
+			"view.length",
+			"view.length()",
+			"view.methods()",
+			"EOF",
+			"view.run_command(\"duplicate_line\")",
+			"view.run_command(\"goto_line\", {\"line\":15})",
+			"view.run_command(\"goto_line\", {\"line\":10})"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/E/gandalf/Documents/fantasy mafia.txt",
+		"/E/Portable programs/VLC 2/lua/intf/hotkeys.lua",
+		"/E/Portable programs/VLC 2/lua/intf/rc.lua",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/app/controllers/static_pages_controller.rb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/app/views/static_pages/contact.html.erb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/app/views/static_pages/about.html.erb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/app/views/static_pages/help.html.erb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/app/views/static_pages/home.html.erb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/app/views/layouts/application.html.erb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/app/views/layouts/_header.html.erb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/app/views/layouts/_footer.html.erb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/app/views/layouts/_shim.html.erb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/config/routes.rb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/spec/requests/static_pages_spec.rb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/app/helpers/application_helper.rb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/app/views/layouts/_shin.html.erb",
+		"/E/gandalf/Programming/Ruby/rails/sample_app/public/hello.html",
+		"/E/gandalf/Programming/Ruby/rails/first_app/.gitignore",
+		"/E/gandalf/Programming/Ruby/rails/first_app/Gemfile",
+		"/E/Portable programs/Sublime Text 3/Data/Packages/User/Default (Windows).sublime-keymap",
+		"/E/gandalf/Programming/Ruby/ticketee/config/database.yml",
+		"/E/gandalf/Programming/Ruby/ticketee/Gemfile",
+		"/E/gandalf/Programming/Ruby/ticketee/config/routes.rb",
+		"/E/gandalf/Programming/Ruby/ticketee/features/step_definitions/web_steps.rb",
+		"/E/gandalf/Programming/Ruby/things_i_bought/config/routes.rb",
+		"/E/gandalf/Programming/Ruby/things_i_bought/app/models/purchase.rb",
+		"/E/gandalf/Programming/Ruby/literary_questions/Gemfile",
+		"/E/Portable programs/Sublime Text 3/Data/Packages/Default/Preferences.sublime-settings",
+		"/E/Portable programs/Sublime Text 3/Data/Packages/SublimeREPL/SublimeREPL.sublime-settings",
+		"/E/Portable programs/Sublime Text 3/patch.py",
+		"/C/Users/ASUS/Desktop/Maturita/MAT.txt",
+		"/C/Users/ASUS/Desktop/Maturita/AJ.txt",
+		"/C/Users/ASUS/Desktop/Maturita/iiii",
+		"/C/Users/ASUS/Desktop/Maturita/SJL.txt",
+		"/E/gandalf/Programming/Ruby/curses/tes2.rb",
+		"/E/gandalf/Programming/Ruby/curses/tes1.rb",
+		"/E/gandalf/Programming/Ruby/curses/main.rb",
+		"/S/Aj/Poznamky/mat/2007.txt",
+		"/C/Users/ASUS/Desktop/Maturita/test.rb",
+		"/E/Portable programs/Sublime Text 3/Data/Packages/Package Control/Package Control.sublime-settings",
+		"/E/Portable programs/Sublime Text 3/Data/Packages/User/Package Control.sublime-settings",
+		"/E/Portable programs/Sublime Text 3/Data/Packages/User/Preferences.sublime-settings",
+		"/E/gandalf/Programming/Pascal/Prvocislo/Prvocislo.pas",
+		"/S/Inf/Ulohy/sem4/mat12/slova.txt",
+		"/S/Inf/Ulohy/sem4/mat12/project1.lpr",
+		"/S/Inf/Ulohy/sem4/mat13/priklad.txt",
+		"/E/gandalf/Documents/notes/Journal.org"
+	],
+	"find":
+	{
+		"height": 0.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"name",
+			"#999",
+			"ň",
+			"é",
+			"í",
+			"ú",
+			"ž",
+			"á",
+			"š",
+			"ľ",
+			"č",
+			"ť",
+			"ý",
+			"[iyíý]",
+			"(.*)",
+			"[iyíý]",
+			"by",
+			" \\(.+",
+			", "
+		],
+		"highlight": true,
+		"in_selection": true,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"email",
+			"$grayLight",
+			"n",
+			"e",
+			"i",
+			"u",
+			"z",
+			"a",
+			"s",
+			"l",
+			"c",
+			"t",
+			"y",
+			"?",
+			"\n$0\n",
+			"?\n$1\n",
+			"?\n",
+			"aby\n",
+			"?",
+			"",
+			"\n",
+			"\\N"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"project": "fopac.sublime-project",
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 220.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 3
+	}
+}
