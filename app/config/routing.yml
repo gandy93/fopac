@@ -1,0 +1,4 @@
+fopac_chat:
+    resource: "@FOPACChatBundle/Resources/config/routing.yml"
+    prefix:   /
+
