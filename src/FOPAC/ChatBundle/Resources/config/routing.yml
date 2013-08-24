@@ -1,3 +1,13 @@
 fopac_chat_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: FOPACChatBundle:Default:index }
+
+home_page:
+    path: /
+    defaults: 
+        _controller: FrameworkBundle:Template:template
+        template: 'FOPACChatBundle:Static:index.html.twig'
+
+chat_page: 
+    path: /chat/{permitId}/{auth}
+    defaults: { _controller: FOPACChatBundle:Chat:index }

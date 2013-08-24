@@ -1,0 +1,12 @@
+body {
+	background-color: #0b61a4;
+	padding-top: 20px;
+}
+
+.well, .hero-unit {
+	background-color: white;
+}
+
+.hero-unit img { margin-right: 25px; }
+
+.text-justify { text-align: justify; }

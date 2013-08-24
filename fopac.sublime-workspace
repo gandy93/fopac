@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"F",
+				"FOPACChatBundle"
+			],
+			[
 				"n",
 				"name"
 			],
@@ -75,13 +79,37 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "src/FOPAC/ChatBundle/Resources/config/routing.yml",
+			"settings":
+			{
+				"buffer_size": 343,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/FOPAC/ChatBundle/Resources/views/Default/index.html.twig",
+			"settings":
+			{
+				"buffer_size": 18,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 390.0,
+		"height": 129.0,
 		"selected_items":
 		[
+			[
+				"pa",
+				"Preferences: Browse Packages"
+			],
+			[
+				"pac",
+				"Preferences: Browse Packages"
+			],
 			[
 				"m",
 				"Set Syntax: Markdown"
@@ -119,9 +147,10 @@
 	},
 	"console":
 	{
-		"height": 125.0,
+		"height": 171.0,
 		"history":
 		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())",
 			"view.lines((4,23))",
 			"view.lines(2)",
 			"view.lines(2,4)",
@@ -164,6 +193,11 @@
 	},
 	"file_history":
 	[
+		"/E/Portable programs/Sublime Text 3/Data/Packages/Package Control/Package Control.sublime-settings",
+		"/E/xampp/htdocs/local/fopac/app/config/routing_dev.yml",
+		"/E/xampp/htdocs/local/fopac/.gitignore",
+		"/E/xampp/htdocs/local/fopac/src/Acme/DemoBundle/Controller/DemoController.php",
+		"/E/xampp/htdocs/local/fopac/composer.json",
 		"/E/gandalf/Documents/fantasy mafia.txt",
 		"/E/Portable programs/VLC 2/lua/intf/hotkeys.lua",
 		"/E/Portable programs/VLC 2/lua/intf/rc.lua",
@@ -203,7 +237,6 @@
 		"/E/gandalf/Programming/Ruby/curses/main.rb",
 		"/S/Aj/Poznamky/mat/2007.txt",
 		"/C/Users/ASUS/Desktop/Maturita/test.rb",
-		"/E/Portable programs/Sublime Text 3/Data/Packages/Package Control/Package Control.sublime-settings",
 		"/E/Portable programs/Sublime Text 3/Data/Packages/User/Package Control.sublime-settings",
 		"/E/Portable programs/Sublime Text 3/Data/Packages/User/Preferences.sublime-settings",
 		"/E/gandalf/Programming/Pascal/Prvocislo/Prvocislo.pas",
@@ -286,8 +319,99 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "src/FOPAC/ChatBundle/Resources/config/routing.yml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 343,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								129,
+								129
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.tmLanguage",
+							"vintage":
+							{
+								"action": null,
+								"action_digits":
+								[
+								],
+								"cancel_action": false,
+								"expecting_register": false,
+								"expecting_user_input": false,
+								"mode": 2,
+								"motion": null,
+								"motion_digits":
+								[
+								],
+								"register": null,
+								"user_input": null,
+								"xpos": 51
+							}
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/FOPAC/ChatBundle/Resources/views/Default/index.html.twig",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 18,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								18,
+								18
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"vintage":
+							{
+								"action": null,
+								"action_digits":
+								[
+								],
+								"cancel_action": false,
+								"expecting_register": false,
+								"expecting_user_input": false,
+								"mode": 2,
+								"motion": null,
+								"motion_digits":
+								[
+								],
+								"register": null,
+								"user_input": null,
+								"xpos": 0
+							}
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -338,11 +462,11 @@
 	},
 	"select_project":
 	{
-		"height": 500.0,
+		"height": 625.0,
 		"selected_items":
 		[
 		],
-		"width": 380.0
+		"width": 475.0
 	},
 	"select_symbol":
 	{
