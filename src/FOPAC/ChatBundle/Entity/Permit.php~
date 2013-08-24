@@ -1,0 +1,50 @@
+<?php 
+namespace FOPAC\ChatBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="permits")
+ */
+class Permit {
+	/**
+	 * @ORM\Id
+	 * @ORM\Column(type="integer")
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	protected $id;
+
+	/**
+	 * @ORM\Column(type="string", name="auth_hash", length=64, unique=true, nullable=false)
+	 */
+	protected $authHash;
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="Room")
+	 * @ORM\JoinColumn(name="room_id", referencedColumnName="id")
+	 */
+	protected $room;
+
+	/**
+	 * @ORM\Column(type="boolean", name="moderator", nullable=false)
+	 */
+	protected $moderator = false;
+
+	/**
+	 * @ORM\Column(type="datetime", name="created_at", nullable=false)
+	 */
+	protected $createdAt;
+	
+	/**
+	 * @ORM\Column(type="datetime", name="last_access_at", nullable=true)
+	 */
+	protected $lastAccessAt = null;
+	
+	public function _construct()
+	{
+		$this->createdAt = new DateTime("NOW"); 
+	}
+}
+
+ ?>
