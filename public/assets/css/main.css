@@ -9,4 +9,6 @@ body {
 
 .hero-unit img { margin-right: 25px; }
 
+.alert { word-break: break-all; }
+
 .text-justify { text-align: justify; }

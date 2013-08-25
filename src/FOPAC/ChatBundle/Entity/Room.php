@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
 * @ORM\Entity
 * @ORM\Table(name="rooms")
+* @ORM\HasLifecycleCallbacks()
 */
 class Room
 {
@@ -55,10 +56,16 @@ class Room
     
 	public function _construct()
     {
-        $this->title = md5(date("U"));
-        $this->createdAt = new DateTime("NOW");
         $this->permits = new ArrayCollection();
         $this->messages = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->setCreatedAt(new \DateTime());
     }
 
     /**

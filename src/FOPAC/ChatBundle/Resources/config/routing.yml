@@ -11,3 +11,10 @@ home_page:
 chat_page: 
     path: /chat/{permitId}/{auth}
     defaults: { _controller: FOPACChatBundle:Chat:index }
+
+
+# Ajax API
+create_room:
+    path: /ajax/create/room 
+    defaults: { _controller: FOPACChatBundle:Room:create, title: '', description: '', passphrase: '' }
+ #   methods: ['POST']

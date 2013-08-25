@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="permits")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Permit {
 	/**
@@ -41,10 +42,13 @@ class Permit {
 	 */
 	protected $lastAccessAt = null;
 	
-	public function _construct()
-	{
-		$this->createdAt = new DateTime("NOW"); 
-	}
+	/**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        $this->setCreatedAt(new \DateTime());
+    }
 
     /**
      * Get id

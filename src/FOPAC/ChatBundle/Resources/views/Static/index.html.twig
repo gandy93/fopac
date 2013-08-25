@@ -1,5 +1,41 @@
 {% extends '::base.html.twig' %}
 
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('assets/js/sha3.js') }}"></script>
+<script type="text/javascript">
+	$("form").submit(function(event) {
+		event.preventDefault();
+
+		var $form = $( this ),
+		title = $form.find( 'input[name="title"]' ).val().trim(),
+		desc = $form.find( 'textarea[name="desc"]' ).val().trim(),
+		passphrase = $form.find( 'input[name="passphrase"]' ).val().trim(),
+		url = $form.attr( 'action' );
+
+		if (passphrase != '') {
+			passphrase = CryptoJS.SHA3(passphrase, { outputLength: 256 }).toString(CryptoJS.enc.Hex);
+		};
+
+		/* Send the data using post */
+		var posting = $.post( url, {'title': title, 'description': desc, 'passphrase': passphrase});
+
+		/* Put the results in a div */
+		posting.done(function( data ) {
+			if (data['Status'] == 0) {
+				var $h2 = $form.parent().find('h2');
+				var $alert = $('<div class="alert alert-block alert-success"></div>').insertAfter($h2);
+				$alert.append('<button type="button" class="close" data-dismiss="alert">&times;</button>');
+				$alert.append('<h4>Success!</h4>');
+				$alert.append('Your Permit URL with moderatoring rights is <a href="'+data['AuthURL']+'">'
+					         +data['AuthURL']+'</a>. Do not share the URL with others. You will be able create more Permitss to the room in the chat interface.');
+			}
+			var content = $( data ).find( '#content' );
+			$( "#result" ).empty().append( content );
+		});
+	});
+</script>
+{% endblock %}
+
 {% block body %}
 <div class="container-fluid">
 	<div class="hero-unit">
@@ -17,14 +53,14 @@
 		<div class="span6 well">
 			<h2>Create a new FOPAC room</h2>
 			<p>All fields are optional.</p>
-			<form>
+			<form action="{{ path('create_room') }}">
 				<label>Title</label>
 				<input class="input-block-level" type="text" name="title" />
 				<label>Description</label>
-				<textarea class="input-block-level" rows="3" name="desc"></textarea>
+				<textarea class="input-block-level" rows="5" name="desc"></textarea>
 				<label>Passphrase</label>
-				<input class="input-block-level" type="password" name="pass" />
-				<button type="button" class="btn btn-large btn-block">Create</button>
+				<input class="input-block-level" type="password" name="passphrase" />
+				<button type="submit" class="btn btn-large btn-block">Create</button>
 			</form>
 		</div>
 	</div>
