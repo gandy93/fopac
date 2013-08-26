@@ -23,3 +23,8 @@ check_pass:
     path: /ajax/room/verify-pass
     defaults: { _controller: FOPACChatBundle:Room:passCheck }
     methods: ['POST']
+
+destroy_room:
+    path: /ajax/room/destroy
+    defaults: { _controller: FOPACChatBundle:Room:destroy }
+    methods: ['POST']

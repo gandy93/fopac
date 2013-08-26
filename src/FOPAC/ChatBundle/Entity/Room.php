@@ -33,12 +33,12 @@ class Room
 	protected $passphrase = '';
 
     /**
-     * @ORM\OneToMany(targetEntity="Permit", mappedBy="room")
+     * @ORM\OneToMany(targetEntity="Permit", mappedBy="room", cascade={"remove"})
      */
     protected $permits;
 
     /**
-     * @ORM\OneToMany(targetEntity="Message", mappedBy="room")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="room", cascade={"remove"})
      */
     protected $messages;
     

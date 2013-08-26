@@ -4,13 +4,15 @@
 <script type="text/javascript" src="{{ asset('assets/js/sha3.js') }}"></script>
 <script type="text/javascript">
 	$(function () {		
+		var pass = '';
+
 		{% if HasPassphrase %} 
-		var pass;
+		
 		$('#passBox').modal({ // Passphrase protection
 			keyboard: false,
 			backdrop: 'static'
 		}).modal('show');
-		$('a.btn-primary').click(function(event) {
+		$('#passBox a.btn-primary').click(function(event) {
 			event.preventDefault();
 			
 			pass = CryptoJS.SHA3($('input[name="passphrase"]').val(), { outputLength: 256 }).toString(CryptoJS.enc.Hex);
@@ -23,9 +25,27 @@
 			});
 		});
 		$('input[name="passphrase"]').keypress(function(event) {
-			if (event.which == 13) { $('a.btn-primary').click(); }
+			if (event.which == 13) { $('#passBox a.btn-primary').click(); }
 		});    
 		{% endif %}
+
+		$('#adminMenu li:nth-child(4)').click(function(event) {
+			event.preventDefault();
+			$('#destroyRoom').modal('show');
+
+			$('#destroyRoom .btn:eq(0)').click(function(event) {
+				event.preventDefault();
+				$('#destroyRoom').modal('hide');
+			});
+			$('#destroyRoom .btn:eq(1)').click(function(event) {
+				event.preventDefault();
+				$.post("{{ path('destroy_room') }}", {'roomId': {{ RoomID }}, 
+													  'passphrase': pass,
+													  'auth': "{{ User.AuthHash }}" }, function(data) {
+					window.location.replace("{{ path("home_page", {}, true) }}" );
+				});
+			});
+		});
 	});
 </script>
 {% endblock %}
@@ -47,6 +67,19 @@
   </div>
 </div>    
 {% endif %}
+
+<div class="modal hide fade" id="destroyRoom">
+  <div class="modal-header">
+    <h3>Destroy the room</h3>
+  </div>
+  <div class="modal-body">
+    <p>This action will permanently delete all messages and permits. Are you sure?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary">No</a>
+    <a href="#" class="btn">Yes</a>
+  </div>
+</div> 
 
 <div class="container-fluid">
 	<div class="row-fluid">
@@ -72,7 +105,7 @@
 				<li>21437</li>
 			</ul>
 			{% if User.IsModerator %}
-			<ul class="nav nav-list well">
+			<ul class="nav nav-list well" id="adminMenu">
 				<li class="nav-header">Administration</li>
 				<li><a href="#">Add Permit</a></li>
 				<li><a href="#">Edit Room</a></li>

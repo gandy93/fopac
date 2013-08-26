@@ -62,4 +62,29 @@ class RoomController extends Controller
     		return $response;
     	}   	
     }
+
+    public function destroyAction(Request $r)
+    {    	
+    	if ($r->isXmlHttpRequest() && $r->getMethod() == "POST") {
+    		$roomId = $r->get('roomId');  $passphrase = $r->get('passphrase');  $auth = $r->get('auth');
+
+    		$user = $this->getDoctrine()->getRepository('FOPACChatBundle:Permit')->findOneBy(array('authHash' => $auth));
+    		if ($user) {
+    			$room = $user->getRoom();
+    			if ($room->getId() == $roomId && $user->isModerator() && $room->getPassphrase() == $passphrase) { 
+    				$em = $this->getDoctrine()->getManager();
+    				$em->remove($room); 
+    				$em->flush();
+
+    				$res = new JsonResponse();
+    				$res->setData(array('Status' => 0));
+    				return $res;
+    			}
+    		}
+    		
+    		$res = new JsonResponse();
+    		$res->setData(array('Status' => 0));
+    		return $res;
+    	}   	
+    }
 }
