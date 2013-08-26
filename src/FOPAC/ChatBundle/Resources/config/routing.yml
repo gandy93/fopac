@@ -18,4 +18,8 @@ create_room:
     path: /ajax/room/new
     defaults: { _controller: FOPACChatBundle:Room:create }
     methods: ['POST']
+
+check_pass:
+    path: /ajax/room/verify-pass
+    defaults: { _controller: FOPACChatBundle:Room:passCheck }
     methods: ['POST']

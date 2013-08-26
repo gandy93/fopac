@@ -47,4 +47,19 @@ class RoomController extends Controller
     		return $response;
     	}
     }
+
+    public function passCheckAction(Request $r)
+    {    	
+    	if ($r->isXmlHttpRequest() && $r->getMethod() == "POST") {
+    		$roomId = $r->get('roomId');  $passphrase = $r->get('passphrase');
+
+    		$room = $this->getDoctrine()->getRepository('FOPACChatBundle:Room')->find($roomId);
+    		if ($room && $room->getPassphrase() == $passphrase) { $param = array('Status' => 0); }
+    		else { $param = array('Status' => 1); }
+
+    		$response = new JsonResponse();
+    		$response->setData($param);
+    		return $response;
+    	}   	
+    }
 }

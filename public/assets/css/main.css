@@ -7,8 +7,40 @@ body {
 	background-color: white;
 }
 
-.hero-unit img { margin-right: 25px; }
+ul.nav-list {
+	margin-bottom: 20px;
+}
 
+blockquote { margin-bottom: 0px; }
+
+.hero-unit img { margin-right: 25px; }
+.logo { margin-right: 10px; }
+ 
 .alert { word-break: break-all; }
 
 .text-justify { text-align: justify; }
+
+/* Message Input Fix */
+.input-prepend.input-append.input-block-level {
+  display: table;
+  width: 100%;
+}
+
+.input-prepend.input-append.input-block-level .add-on {
+  display: table-cell;
+  width: 5%;
+}
+
+.input-prepend.input-append.input-block-level .btn {
+  display: table-cell;
+  width: 10%;
+}
+
+.input-prepend.input-append.input-block-level > input {
+  box-sizing: border-box;
+  height: 30px;
+  display: table-cell;
+  width: 100%\9;
+  width: 90%;
+  border-left-style: none;
+}

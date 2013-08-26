@@ -1,0 +1,192 @@
+{% extends '::base.html.twig' %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('assets/js/sha3.js') }}"></script>
+<script type="text/javascript">
+	$(function () {		
+		{% if HasPassphrase %} 
+		var pass;
+		$('#passBox').modal({ // Passphrase protection
+			keyboard: false,
+			backdrop: 'static'
+		}).modal('show');
+		$('a.btn-primary').click(function(event) {
+			event.preventDefault();
+			
+			pass = CryptoJS.SHA3($('input[name="passphrase"]').val(), { outputLength: 256 }).toString(CryptoJS.enc.Hex);
+			$.post('{{ path("check_pass") }}', {'roomId': {{ RoomID }}, 'passphrase': pass}, function(data) {
+				if (data['Status'] == 0) { 
+					$('#passBox').modal('hide');
+				 } else { 
+					$('#badPassAlert').show(300).delay(5000).hide(600); 
+				}
+			});
+		});
+		$('input[name="passphrase"]').keypress(function(event) {
+			if (event.which == 13) { $('a.btn-primary').click(); }
+		});    
+		{% endif %}
+	});
+</script>
+{% endblock %}
+
+{% block body %}
+{% if HasPassphrase %}
+<div class="modal hide fade" id="passBox">
+  <div class="modal-header">
+    <h3>Enter the passphrase</h3>
+  </div>
+  <div class="modal-body">
+    <p>You're attempting to access a room protected by a passphrase. Please enter the passphrase below.</p>
+    <div class="alert alert-error hide" id="badPassAlert">Incorrect passphrase.</div>
+    <input type="password" class="input-block-level" name="passphrase" />
+  </div>
+  <div class="modal-footer">
+    <a href="{{ path('home_page') }}" class="btn">Close</a>
+    <a href="#" class="btn btn-primary">OK</a>
+  </div>
+</div>    
+{% endif %}
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span3" id="sidebar">
+			<div class="well">
+				<img src="#" class="pull-left logo" alt="FOPAC's Logo" width="40px" height="40px" />
+				<p><strong>FOPAC</strong> <small>['fopak]</small> is a Free Online Private Anonymous Chat system.</p>
+			</div>
+			<ul class="nav nav-list well">
+				<li class="nav-header">Room</li>
+				<li>PTP Mafia #36 - Priests</li>
+				<li class="nav-header">Description</li>
+				<li class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis velit sagittis, lacinia ligula et, sollicitudin felis. Nunc molestie velit a enim interdum hendrerit. Nullam ultricies, nulla at pellentesque viverra, lacus orci placerat nunc, ac iaculis nulla purus ac libero. Sed at erat non tortor cursus pretium nec non neque.</li>
+				<li class="divider"></li>
+				<li><a href="#">Logout</a></li>
+			</ul>
+			<ul class="nav nav-list well">
+				<li class="nav-header">Permits</li>
+				<li>11247</li>
+				<li>65789</li>
+				<li>34276</li>
+				<li>44776</li>
+				<li>21437</li>
+			</ul>
+			{% if User.IsModerator %}
+			<ul class="nav nav-list well">
+				<li class="nav-header">Administration</li>
+				<li><a href="#">Add Permit</a></li>
+				<li><a href="#">Edit Room</a></li>
+				<li><a href="#">Destroy Room</a></li>
+			</ul>
+			{% endif %}
+		</div>
+		<div class="span9">
+			<form action="" id="msgbox">
+				<div class="input-prepend input-append input-block-level">
+					<span class="add-on">&lt;{{ User.AuthHash|slice(0, 10) }}&gt;</span>
+					<input class="input-block-level" type="text" name="msg" placeholder="Type a message..." />
+					<button class="btn" type="button">Send!</button>
+				</div>
+			</form>
+			<div id="chatbox">
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote class="pull-right">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote class="pull-right">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+				<div class="well well-small clearfix">
+					<blockquote>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
+					</blockquote>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
