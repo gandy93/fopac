@@ -15,6 +15,7 @@ chat_page:
 
 # Ajax API
 create_room:
-    path: /ajax/create/room 
-    defaults: { _controller: FOPACChatBundle:Room:create, title: '', description: '', passphrase: '' }
- #   methods: ['POST']
+    path: /ajax/room/new
+    defaults: { _controller: FOPACChatBundle:Room:create }
+    methods: ['POST']
+    methods: ['POST']

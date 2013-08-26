@@ -15,13 +15,16 @@ class RoomController extends Controller
         return $this->render('FOPACChatBundle:Default:index.html.twig', array('name' => $name));
     }*/
 
-    public function createAction(Request $request, $title, $description, $passphrase)
+    public function createAction(Request $request)
     {
     	if ($request->isXmlHttpRequest() && $request->getMethod() == "POST") {
+    		$title = $request->get('title');   $description = $request->get('description'); 
+    		$passphrase = $request->get('passphrase');
+
     		$room = new Room();
-    		if (empty($title)) { $room->setTitle(md5(date("U"))); }
-    		$room->setDescription = htmlspecialchars($description);
-    		$room->setPassphrase = $passphrase;
+    		if (empty($title)) { $room->setTitle(md5(date("U"))); } else { $room->setTitle($title); }
+    		$room->setDescription(htmlspecialchars($description));
+    		$room->setPassphrase($passphrase);
 
     		$em = $this->getDoctrine()->getManager();
     		$em->persist($room);
