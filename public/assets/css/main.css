@@ -18,7 +18,21 @@ blockquote { margin-bottom: 0px; }
  
 .alert { word-break: break-all; }
 
-.text-justify { text-align: justify; }
+.text-justify { 
+	text-align: justify; 
+	word-wrap: wrap-all;
+	-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+}
+
+.mono { font-family: Consolas, Lucida Console, monospace; }
+
+#managePermits {
+	width: 750px;
+	margin-left: -375px;
+}
 
 /* Message Input Fix */
 .input-prepend.input-append.input-block-level {

@@ -2,9 +2,10 @@
 
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('assets/js/sha3.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.zclip.min.js') }}"></script>
 <script type="text/javascript">
 	$(function () {		
-		var pass = '';
+		var pass = '', room = {}, permits = {};
 
 		{% if HasPassphrase %} 
 		
@@ -19,6 +20,7 @@
 			$.post('{{ path("check_pass") }}', {'roomId': {{ RoomID }}, 'passphrase': pass}, function(data) {
 				if (data['Status'] == 0) { 
 					$('#passBox').modal('hide');
+					loadSidebarInfo();
 				 } else { 
 					$('#badPassAlert').show(300).delay(5000).hide(600); 
 				}
@@ -29,6 +31,30 @@
 		});    
 		{% endif %}
 
+		{% if HasPassphrase == false %}
+		    loadSidebarInfo();
+		{% endif %}
+
+		function loadSidebarInfo () {
+			$.post("{{ path("sidebar_info") }}", {"roomId": {{ RoomID }}, 
+												"passphrase": pass,
+												"auth": "{{ User.AuthHash }}" }, function(data) {
+				room = data['Room'];  permits = data['Permits'];
+				$('#roomName').text(room['title']);  $('#roomDesc').text(room['description']);
+
+				$('#permitsMenu').empty().append('<li class="nav-header">Permits</li>');
+				$.each(permits, function(i, val) {
+				 	 var $p = $('<li class="mono"></li>').appendTo('#permitsMenu');
+				 	 $p.append('<i class="icon-user"> </i>'+val['nick']);
+				 	 if (val['Online']) { $p.append('  <span class="label label-success">Online </span>')}
+				 	 else { $p.append('  <span class="label label-important">Offline</span>')};
+				 	 if (val['isModerator']) { $p.append('  <span class="label label-info">Moderator</span>')};
+				 }); 
+			});
+		}
+
+		{% if User.IsModerator %}
+		// Destroy room
 		$('#adminMenu li:nth-child(4)').click(function(event) {
 			event.preventDefault();
 			$('#destroyRoom').modal('show');
@@ -46,6 +72,144 @@
 				});
 			});
 		});
+
+		// Manage Permits
+		$('#adminMenu li:nth-child(2)').click(function(event) {
+			event.preventDefault();
+			$('#managePermits').modal('show');
+
+			var clip = new ZeroClipboard( $("#managePermits .icon-copy"), { moviePath: "{{ asset('assets/js/ZeroClipboard.swf') }}"} );
+			clip.on( 'complete', function(client, args) {
+				var id = $(this).parents('tr').find('td:eq(0)').text();
+				$('<div class="alert alert-info">Permit #'+id+' has been copied to your clipboard.</div>')
+				.appendTo('#managePermits .modal-body').delay(5000).hide(600); 
+			});
+
+			function iconRemove(event) {
+				event.preventDefault();
+				var $row = $(this).parents('tr');				
+				$.post('{{ path("remove_permit") }}', {'pass': pass,
+													   'auth': '{{ User.AuthHash }}',
+													   'id': parseInt($row.find('td:eq(0)').text())}, function(data) {
+					if (data['Status'] == 0) { $row.remove(); }
+				});
+			}
+
+			function permitChange() {
+				event.preventDefault();
+				var $row = $(this).parents('tr');				
+				$.post('{{ path("change_permit") }}', {'pass': pass,
+													   'auth': '{{ User.AuthHash }}',
+													   'id': parseInt($row.find('td:eq(0)').text()),
+													   'mod': $(this).prop('checked')}, function(data) {
+					if (data['Status'] == 0) { }
+				});
+			}
+
+			$('#managePermits').on('shown', function () {
+				var $t = $('#managePermits tbody');  $t.empty();
+				$.each(permits, function(i, val) {
+					$r = $('<tr></tr>');
+					$r.append('<td>'+val['id']+'</td>')
+					.append('<td class="text-justify"><a href="'+val['authURL']+'">'+val['authHash'].substring(0, 9)+'<span class="muted">'+val['authHash'].substring(10)+'</span></a></td>');
+					if (val['isModerator']) { 
+						$r.append('<td><input type="checkbox" value="'+val['id']+'" checked /></td>');					
+					} else {
+						$r.append('<td><input type="checkbox" value="'+val['id']+'" /></td>');					
+					}
+					$r.append('<td class="clearfix"><i class="icon-remove pull-right"> </i><i class="icon-copy pull-right" data-clipboard-text="'+val["authURL"]+'"> </i></td>').appendTo($t);		
+					clip.glue($r.find('.icon-copy'));			
+					$r.find('.icon-remove').click(iconRemove);
+					$r.find('input').change(permitChange);
+				});
+				
+			});
+
+			$('#managePermits').on('hidden', function () {
+				loadSidebarInfo();
+			});
+
+			$('#managePermits .icon-plus').click(function(event) {
+				event.preventDefault();
+				var mod = $('#addMod').prop('checked');
+				$.post('{{ path("add_permit") }}', {'pass': pass,
+													'auth': '{{ User.AuthHash }}',
+													'mod': $('#addMod').prop('checked')}, function(data) {
+					if (data['Status'] == 0) {
+						$r = $('<tr></tr>');
+						$r.append('<td>'+data['permitId']+'</td>')
+						.append('<td class="text-justify"><a href="'+data['authURL']+'">'+data['authHash'].substring(0, 9)+'<span class="muted">'+data['authHash'].substring(10)+'</span></a></td>');
+						if (data['mod'] == true) { 
+							$r.append('<td><input type="checkbox" value="'+data['permitId']+'" checked/></td>');					
+						} else {
+							$r.append('<td><input type="checkbox" value="'+data['permitId']+'" /></td>');					
+						}
+						$r.append('<td class="clearfix"><i class="icon-remove pull-right"> </i><i class="icon-copy pull-right" data-clipboard-text="'+data["authURL"]+'"> </i></td>');
+						$('#managePermits tbody').append($r);
+						clip.glue($r.find('.icon-copy'));
+						$r.find('.icon-remove').click(iconRemove);
+						$r.find('input').change(permitChange);
+					}
+				});
+			});
+
+			$('#managePermits .btn').click(function(event) {
+				event.preventDefault();
+				$('#managePermits').modal('hide');				
+			});
+		});
+
+		// Room Info editing
+		$('#adminMenu li:nth-child(3)').click(function(event) {
+			event.preventDefault();
+			$('#editRoom').modal('show');
+
+			$('#editRoom').on('shown', function() {
+				$('#editRoom input[name="title"]').val(room['title']);
+				$('#editRoom textarea[name="desc"]').val(room['description']);
+			});
+
+			$('#editRoom').on('hidden', function() {
+				$('#editRoom .control-group').removeClass('error');
+			});
+
+			$('#editRoom .btn-primary').click(function(event) {
+				event.preventDefault();
+				var title = $('#editRoom input[name="title"]').val(), 
+				desc = $('#editRoom textarea[name="desc"]').val(),
+				oldPass = $('#editRoom input[name="oldPassphrase"]').val(),
+				newPass = $('#editRoom input[name="newPassphrase"]').val();
+
+				if (oldPass != '') { 
+					oldPass = CryptoJS.SHA3(oldPass, { outputLength: 256 }).toString(CryptoJS.enc.Hex); 
+				}
+				if (newPass != '') { 
+					newPass = CryptoJS.SHA3(newPass, { outputLength: 256 }).toString(CryptoJS.enc.Hex); 
+				}
+
+				if (oldPass == pass) {
+					$.post('{{ path("edit_room") }}', {'room': {'id': {{ RoomID }},
+																'title': title,
+																'desc': desc,
+																'pass': oldPass,
+																'newPass': newPass},
+													   'auth': "{{ User.AuthHash }}"}, function(data) {
+						if (data['Status'] == 0) {		
+							if (oldPass != newPass)	{ pass = newPass;}				
+							$('#editRoom').modal('hide');
+							loadSidebarInfo();
+						}
+					});
+				} else { $('#editRoom .control-group').addClass('error'); }
+			});
+
+			$('#editRoom .btn:eq(0)').click(function(event) {
+				event.preventDefault();
+				$('#editRoom').modal('hide');
+			});
+		});
+
+		{% endif %}
 	});
 </script>
 {% endblock %}
@@ -81,6 +245,61 @@
   </div>
 </div> 
 
+<div class="modal hide fade" id="managePermits">
+  <div class="modal-header">
+    <h3>Manage Permits</h3>
+  </div>
+  <div class="modal-body">
+  	<table class="table table-condensed">
+  		<thead>
+  			<tr>
+  				<td>#</td>
+  				<td>AuthHash</td>
+  				<td>Mod?</td>
+  				<td></td>
+  			</tr>
+  		</thead>
+  		<tbody>  			
+  		</tbody>
+  		<tfoot>
+  			<tr>
+  				<td></td>
+  				<td></td>
+  				<td><input type="checkbox" value="add" id="addMod"></td>
+  				<td class="clearfix"><i class="icon-plus pull-right"> </i></td>
+  			</tr>
+  		</tfoot>
+  	</table>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary">Close</a>
+  </div>
+</div> 
+
+<div class="modal hide fade" id="editRoom">
+  <div class="modal-header">
+    <h3>Edit the room</h3>
+  </div>
+  <div class="modal-body">
+  	<form action="">
+  		<label>Title</label>
+  		<input class="input-block-level" type="text" name="title" />
+  		<label>Description</label>
+  		<textarea class="input-block-level" rows="5" name="desc"></textarea>
+  		<div class="control-group">
+  			<label class="control-label">Old Passphrase</label>
+  			<input class="input-block-level" type="password" name="oldPassphrase" />
+  		</div>  		
+  		<label>New Passphrase</label>
+  		<input class="input-block-level" type="password" name="newPassphrase" />
+  	</form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn">Close</a>
+    <a href="#" class="btn btn-primary">Save</a>
+  </div>
+</div> 
+
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span3" id="sidebar">
@@ -90,13 +309,14 @@
 			</div>
 			<ul class="nav nav-list well">
 				<li class="nav-header">Room</li>
-				<li>PTP Mafia #36 - Priests</li>
+				<li id="roomName">PTP Mafia #36 - Priests</li>
 				<li class="nav-header">Description</li>
-				<li class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis velit sagittis, lacinia ligula et, sollicitudin felis. Nunc molestie velit a enim interdum hendrerit. Nullam ultricies, nulla at pellentesque viverra, lacus orci placerat nunc, ac iaculis nulla purus ac libero. Sed at erat non tortor cursus pretium nec non neque.</li>
+				<li class="text-justify" id="roomDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis velit sagittis, lacinia ligula et, sollicitudin felis. Nunc molestie velit a enim interdum hendrerit. Nullam ultricies, nulla at pellentesque viverra, lacus orci placerat nunc, ac iaculis nulla purus ac libero. Sed at erat non tortor cursus pretium nec non neque.</li>
 				<li class="divider"></li>
+				<li><a href="#">Save all messages as a text file</a></li>
 				<li><a href="#">Logout</a></li>
 			</ul>
-			<ul class="nav nav-list well">
+			<ul class="nav nav-list well" id="permitsMenu">
 				<li class="nav-header">Permits</li>
 				<li>11247</li>
 				<li>65789</li>
@@ -107,7 +327,7 @@
 			{% if User.IsModerator %}
 			<ul class="nav nav-list well" id="adminMenu">
 				<li class="nav-header">Administration</li>
-				<li><a href="#">Add Permit</a></li>
+				<li><a href="#">Manage Permits</a></li>
 				<li><a href="#">Edit Room</a></li>
 				<li><a href="#">Destroy Room</a></li>
 			</ul>

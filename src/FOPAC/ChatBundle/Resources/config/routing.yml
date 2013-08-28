@@ -28,3 +28,28 @@ destroy_room:
     path: /ajax/room/destroy
     defaults: { _controller: FOPACChatBundle:Room:destroy }
     methods: ['POST']
+
+sidebar_info:
+    path: /ajax/room/info
+    defaults: { _controller: FOPACChatBundle:Room:info }
+    methods: ['POST']
+
+edit_room:
+    path: /ajax/room/edit 
+    defaults: { _controller: FOPACChatBundle:Room:edit }
+    methods: ["POST"]
+
+add_permit:
+    path: /ajax/permit/add
+    defaults: { _controller: FOPACChatBundle:Room:addPermit }
+    methods: ["POST"]
+
+remove_permit:
+    path: /ajax/permit/remove
+    defaults: { _controller: FOPACChatBundle:Room:removePermit }
+    methods: ["POST"]
+
+change_permit:
+    path: /ajax/permit/change
+    defaults: { _controller: FOPACChatBundle:Room:changePermit }
+    methods: ["POST"]
