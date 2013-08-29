@@ -124,6 +124,10 @@ class RoomController extends Controller
     		if ($user) {
     			$room = $user->getRoom();
     			if ($room->getId() == $roomId && $room->getPassphrase() == $passphrase) { 
+    				$user->setLastAccessAt(new \DateTime());
+    				$room->setLastAccessAt($user->getLastAccessAt());
+    				$this->getDoctrine()->getManager()->flush();
+
     				$permits = $room->getPermits();
     				$perm = array();
     				foreach ($permits as $i => $p) {
@@ -131,7 +135,7 @@ class RoomController extends Controller
     									  'isModerator' => $p->isModerator());
 
 						$access = $p->getLastAccessAt();
-    					if ($access && (time() - $access->getTimestamp()) <= 60*5) { $perm[$i]['Online'] = true; }
+    					if ($access && (time() - $access->getTimestamp()) <= 60*2.5) { $perm[$i]['Online'] = true; }
     					if ($user->isModerator()) {
     						$perm[$i]['id'] = $p->getId();
     						$perm[$i]['authHash'] = $p->getAuthHash();

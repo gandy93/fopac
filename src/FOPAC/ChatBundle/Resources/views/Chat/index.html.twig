@@ -32,11 +32,11 @@
 		{% endif %}
 
 		{% if HasPassphrase == false %}
-		    loadSidebarInfo();
+		    connect();
 		{% endif %}
 
 		function loadSidebarInfo () {
-			$.post("{{ path("sidebar_info") }}", {"roomId": {{ RoomID }}, 
+			return $.post("{{ path("sidebar_info") }}", {"roomId": {{ RoomID }}, 
 												"passphrase": pass,
 												"auth": "{{ User.AuthHash }}" }, function(data) {
 				room = data['Room'];  permits = data['Permits'];
@@ -46,12 +46,52 @@
 				$.each(permits, function(i, val) {
 				 	 var $p = $('<li class="mono"></li>').appendTo('#permitsMenu');
 				 	 $p.append('<i class="icon-user"> </i>'+val['nick']);
-				 	 if (val['Online']) { $p.append('  <span class="label label-success">Online </span>')}
+				 	 if (val['Online']) { $p.append('  <span class="label label-success">Online&nbsp;</span>')}
 				 	 else { $p.append('  <span class="label label-important">Offline</span>')};
 				 	 if (val['isModerator']) { $p.append('  <span class="label label-info">Moderator</span>')};
 				 }); 
 			});
 		}
+
+		function connect() {
+			(function pollSidebar() {
+				loadSidebarInfo().always(function (data) {
+					setTimeout(function() {pollSidebar()}, 2.5*60*1000);
+				})
+			})();
+		}
+
+		$(document).keydown(function(event) {
+			if ($('.modal:visible').size() == 0 && !event.ctrlKey && !event.metaKey) {
+				var k = event.which;
+				if ((k >= 65 && k <= 90) || (k >= 48 && k <= 57) || (k >= 96 && k <= 105) // [a-zA-Z0-9]
+					|| ($.inArray(k, [32, 106, 107, 109, 110, 111]) > -1) || (k >= 186 && k <= 192) 
+					|| (k >= 219 && k <= 222)) {
+					$('#msgbox input').focus();
+				}
+			}			
+		});
+
+		$('#msgbox button').click(function(event) {
+			event.preventDefault();
+			var msg = $('#msgbox input').val().trim();
+			if (msg != '') {
+				$.post('{{ path("send_msg") }}', {'auth': '{{ User.AuthHash }}',
+												  'passphrase': pass,
+												  'msg': msg}, function(data) {
+					if (data['Status'] == 0) {
+						$('#msgbox input').val('');
+					}
+				});
+			}
+		});
+
+		$('#msgbox input').keydown(function(event) {
+			if (event.which == 13) { 
+				event.preventDefault();
+				$('#msgbox button').click(); 
+			} else if (event.which == 27) { $('#msgbox input').blur(); }
+		});
 
 		{% if User.IsModerator %}
 		// Destroy room

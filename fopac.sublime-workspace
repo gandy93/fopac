@@ -4,20 +4,128 @@
 		"selected_items":
 		[
 			[
+				"pe",
+				"permitChange"
+			],
+			[
+				"ch",
+				"change	.change"
+			],
+			[
+				"pr",
+				"prop	.prop() - single"
+			],
+			[
+				"ic",
+				"iconRemove"
+			],
+			[
+				"p",
+				"parents	.parents()"
+			],
+			[
+				"permi",
+				"permitId"
+			],
+			[
+				"i",
+				"icon-copy"
+			],
+			[
+				"th",
+				"thead"
+			],
+			[
+				"el",
+				"else"
+			],
+			[
+				"tr",
+				"true"
+			],
+			[
+				"au",
+				"AuthHash"
+			],
+			[
+				"che",
+				"checked"
+			],
+			[
+				"add",
+				"addMod"
+			],
+			[
+				"auth",
+				"authHash"
+			],
+			[
+				"P",
+				"Permit"
+			],
+			[
+				"r",
+				"Room"
+			],
+			[
+				"a",
+				"ajax"
+			],
+			[
+				"ro",
+				"roomData"
+			],
+			[
+				"d",
+				"data	.data()"
+			],
+			[
+				"R",
+				"RoomID"
+			],
+			[
+				"ne",
+				"newPass"
+			],
+			[
+				"co",
+				"control-group"
+			],
+			[
+				"ad",
+				"addClass	addClass"
+			],
+			[
+				"ol",
+				"oldPass"
+			],
+			[
+				"oldp",
+				"oldPass"
+			],
+			[
+				"new",
+				"newPass"
+			],
+			[
+				"tex",
+				"text	.text"
+			],
+			[
+				"mod",
+				"modal-body"
+			],
+			[
+				"ap",
+				"appendTo	.appendTo()"
+			],
+			[
 				"fu",
 				"fun	function …"
 			],
 			[
-				"P",
-				"POST"
-			],
-			[
 				"c",
 				"click	click"
-			],
-			[
-				"ic",
-				"icon-copy"
 			],
 			[
 				"is",
@@ -36,28 +144,12 @@
 				"HasPassphrase"
 			],
 			[
-				"tex",
-				"text-justify"
-			],
-			[
 				"cl",
 				"class"
 			],
 			[
-				"ap",
-				"append	.append"
-			],
-			[
 				"fun",
 				"fun	Function"
-			],
-			[
-				"pe",
-				"permitsMenu"
-			],
-			[
-				"p",
-				"perm"
 			],
 			[
 				"fo",
@@ -76,10 +168,6 @@
 				"defaults"
 			],
 			[
-				"ro",
-				"room"
-			],
-			[
 				"roo",
 				"Room"
 			],
@@ -94,10 +182,6 @@
 			[
 				"Res",
 				"response"
-			],
-			[
-				"a",
-				"ajax"
 			],
 			[
 				"ho",
@@ -138,10 +222,6 @@
 			[
 				"pa",
 				"param"
-			],
-			[
-				"r",
-				"room"
 			],
 			[
 				"F",
@@ -212,10 +292,6 @@
 				"htmlspecialchars"
 			],
 			[
-				"R",
-				"Room"
-			],
-			[
 				"req",
 				"request"
 			],
@@ -228,16 +304,8 @@
 				"dp	Doctrine DateTime Property"
 			],
 			[
-				"ne",
-				"new"
-			],
-			[
 				"cre",
 				"createdAt"
-			],
-			[
-				"th",
-				"this"
 			],
 			[
 				"m",
@@ -319,7 +387,7 @@
 			"file": "src/FOPAC/ChatBundle/Resources/config/routing.yml",
 			"settings":
 			{
-				"buffer_size": 993,
+				"buffer_size": 1383,
 				"line_ending": "Windows"
 			}
 		},
@@ -383,7 +451,7 @@
 			"file": "public/assets/css/main.css",
 			"settings":
 			{
-				"buffer_size": 979,
+				"buffer_size": 1040,
 				"line_ending": "Windows"
 			}
 		},
@@ -391,7 +459,7 @@
 			"file": "src/FOPAC/ChatBundle/Controller/RoomController.php",
 			"settings":
 			{
-				"buffer_size": 4665,
+				"buffer_size": 8877,
 				"line_ending": "Unix"
 			}
 		},
@@ -407,7 +475,7 @@
 			"file": "src/FOPAC/ChatBundle/Resources/views/Chat/index.html.twig",
 			"settings":
 			{
-				"buffer_size": 13236,
+				"buffer_size": 16797,
 				"line_ending": "Windows"
 			}
 		},
@@ -415,7 +483,7 @@
 			"file": "app/logs/dev.log",
 			"settings":
 			{
-				"buffer_size": 5499915,
+				"buffer_size": 7561189,
 				"line_ending": "Unix"
 			}
 		}
@@ -596,6 +664,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"val",
+			"oldPass",
 			"return",
 			"well-small",
 			"mini",
@@ -628,11 +698,12 @@
 			", "
 		],
 		"highlight": true,
-		"in_selection": false,
+		"in_selection": true,
 		"preserve_case": false,
 		"regex": false,
 		"replace_history":
 		[
+			"data",
 			"well well-small",
 			"@ORM\\",
 			"email",
@@ -676,15 +747,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 993,
+						"buffer_size": 1383,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								991,
-								991
+								994,
+								994
 							]
 						],
 						"settings":
@@ -711,7 +782,7 @@
 							}
 						},
 						"translation.x": 0.0,
-						"translation.y": 250.0,
+						"translation.y": 661.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -901,8 +972,8 @@
 						"selection":
 						[
 							[
-								4106,
-								4530
+								484,
+								605
 							]
 						],
 						"settings":
@@ -910,7 +981,7 @@
 							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1191.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -921,15 +992,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 979,
+						"buffer_size": 1040,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								501,
-								446
+								504,
+								504
 							]
 						],
 						"settings":
@@ -937,7 +1008,7 @@
 							"syntax": "Packages/CSS/CSS.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 23.0,
+						"translation.y": 133.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -948,15 +1019,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4665,
+						"buffer_size": 8877,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1611,
-								1611
+								8630,
+								8630
 							]
 						],
 						"settings":
@@ -964,7 +1035,7 @@
 							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 751.0,
+						"translation.y": 4401.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -991,7 +1062,7 @@
 							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 233.0,
+						"translation.y": 163.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1002,15 +1073,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13236,
+						"buffer_size": 16797,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3934,
-								3934
+								3702,
+								3702
 							]
 						],
 						"settings":
@@ -1018,7 +1089,7 @@
 							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1605.0,
+						"translation.y": 1694.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1029,15 +1100,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5499915,
+						"buffer_size": 7561189,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4831553,
-								4831553
+								7159927,
+								7159927
 							]
 						],
 						"settings":
@@ -1045,7 +1116,7 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1150543.0,
+						"translation.y": 1703960.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

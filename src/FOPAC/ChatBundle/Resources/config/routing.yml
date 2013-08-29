@@ -53,3 +53,12 @@ change_permit:
     path: /ajax/permit/change
     defaults: { _controller: FOPACChatBundle:Room:changePermit }
     methods: ["POST"]
+
+####################################################################
+
+send_msg:
+    path: /ajax/chat/send
+    defaults: { _controller: FOPACChatBundle:Chat:send }
+    methods: ["POST"]
+
+    methods: ["POST"]
