@@ -174,4 +174,14 @@ class Permit {
     {
         return $this->room;
     }
+
+    /**
+     * Get moderator
+     *
+     * @return boolean 
+     */
+    public function getModerator()
+    {
+        return $this->moderator;
+    }
 }

@@ -101,7 +101,7 @@ class Permit {
      *
      * @return boolean 
      */
-    public function getModerator()
+    public function isModerator()
     {
         return $this->moderator;
     }

@@ -27,6 +27,10 @@ blockquote { margin-bottom: 0px; }
         hyphens: auto;
 }
 
+.message {
+	margin-bottom: 5px;
+}
+
 .mono { font-family: Consolas, Lucida Console, monospace; }
 
 #managePermits {

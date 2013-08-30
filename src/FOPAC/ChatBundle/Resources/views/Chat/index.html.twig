@@ -3,9 +3,13 @@
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('assets/js/sha3.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/jquery.zclip.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.timeago.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.linkify.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.emoji.js') }}"></script>
 <script type="text/javascript">
 	$(function () {		
-		var pass = '', room = {}, permits = {};
+		var pass = '', room = {}, permits = {}, topMsg = {'id': -1, 'nick': '', 'right': true}, 
+		bottomMsg = {'id': -1, 'nick': '', 'right': true}, wfocus = true;
 
 		{% if HasPassphrase %} 
 		
@@ -20,7 +24,7 @@
 			$.post('{{ path("check_pass") }}', {'roomId': {{ RoomID }}, 'passphrase': pass}, function(data) {
 				if (data['Status'] == 0) { 
 					$('#passBox').modal('hide');
-					loadSidebarInfo();
+					connect();
 				 } else { 
 					$('#badPassAlert').show(300).delay(5000).hide(600); 
 				}
@@ -41,7 +45,7 @@
 												"auth": "{{ User.AuthHash }}" }, function(data) {
 				room = data['Room'];  permits = data['Permits'];
 				$('#roomName').text(room['title']);  $('#roomDesc').text(room['description']);
-
+				console.log('PERMITS: ', data['Permits']);
 				$('#permitsMenu').empty().append('<li class="nav-header">Permits</li>');
 				$.each(permits, function(i, val) {
 				 	 var $p = $('<li class="mono"></li>').appendTo('#permitsMenu');
@@ -53,12 +57,97 @@
 			});
 		}
 
+		function loadNew() {
+			return $.post('{{ path("new_msg") }}', {'auth': '{{ User.AuthHash }}',
+											 'passphrase': pass,
+											 'last': topMsg['id']}, function(data) {
+				if (data['Status'] == 0) {
+					$.each(data['msg'], function(i, v) {
+						 var $d = $('<div class="well well-small clearfix message"></div>'),
+						 $b = $('<blockquote></blockquote>').append('<p>'+v['text']+'</p>')
+						 .append('<small><cite title="'+v['nick']+'" class="mono">'+v['nick']+'</cite> wrote <abbr class="timeago" title="'+v['time']+'"></abbr></small>');
+
+						 if (topMsg['right']) {
+						 	if (topMsg['nick'] == v['nick'] ) { $b.addClass('pull-right'); }
+						 	else { topMsg['right'] = false; }
+						 } else {
+						 	if (topMsg['nick'] != v['nick']) { 
+								$b.addClass('pull-right');
+						 		topMsg['right'] = true; }
+						 }
+
+						 $d.append($b).prependTo('#chatbox');
+						 $d.linkify({target: '_blank'}).emoji();
+						 topMsg['id'] = v['id']; topMsg['nick'] = v['nick'];
+						 if (bottomMsg['id'] < 0) {
+						 	bottomMsg['id'] = v['id']; bottomMsg['nick'] = v['nick']; 
+						 	bottomMsg['right'] = topMsg['right'];
+						 }
+					});
+					$('abbr.timeago').timeago();
+
+				}
+			});
+		}
+
+		function loadOld() {
+			$.post('{{ path("old_msg") }}', {'auth': '{{ User.AuthHash }}',
+											 'passphrase': pass,
+											 'first': bottomMsg['id']}, function(data) {
+				if (data['Status'] == 0) {
+					$.each(data['msg'], function(i, v) {
+						 var $d = $('<div class="well well-small clearfix message"></div>'),
+						 $b = $('<blockquote></blockquote>').append('<p>'+v['text']+'</p>')
+						 .append('<small><cite title="'+v['nick']+'" class="mono">'+v['nick']+'</cite> wrote <abbr class="timeago" title="'+v['time']+'"></abbr></small>');
+
+						 if (bottomMsg['right']) {
+						 	if (bottomMsg['nick'] == v['nick'] ) { $b.addClass('pull-right'); }
+						 	else { bottomMsg['right'] = false; }
+						 } else {
+						 	if (bottomMsg['nick'] != v['nick']) { 
+								$b.addClass('pull-right');
+						 		bottomMsg['right'] = true; }
+						 }
+
+						 $d.append($b).appendTo('#chatbox');
+						 $d.linkify({target: '_blank'}).emoji();
+						 bottomMsg['id'] = v['id']; bottomMsg['nick'] = v['nick'];
+						 if (topMsg['id'] < 0) {
+						 	topMsg['id'] = v['id']; topMsg['nick'] = v['nick']; 
+						 	topMsg['right'] = bottomMsg['right'];
+						 }
+					});
+					$('abbr.timeago').timeago();
+					
+				}
+			});
+		}
+
 		function connect() {
+			$(window).focus(function(event) { wfocus = true; $('body').fadeTo(10, 1); });
+			$(window).blur(function(event) { wfocus = false; $('body').fadeTo(10, 0.5); });
+
 			(function pollSidebar() {
-				loadSidebarInfo().always(function (data) {
-					setTimeout(function() {pollSidebar()}, 2.5*60*1000);
-				})
+				if (wfocus) {
+					loadSidebarInfo().always(function (data) {
+						setTimeout(function() {pollSidebar()}, 2.5*60*1000);
+					});
+				} else { setTimeout(function() {pollSidebar()}, 2*1000);}				
 			})();
+
+			(function pollMessages() {
+				if (wfocus) {
+					loadNew().always(function (data) {
+						setTimeout(function() {pollMessages()}, 5*1000);
+					});
+				} else { setTimeout(function() {pollMessages()}, 2*1000); }				
+			})();
+
+			$(window).scroll(function() {
+				if($(window).scrollTop() + $(window).height() == $(document).height()) {
+					loadOld();
+				}
+			});
 		}
 
 		$(document).keydown(function(event) {
@@ -81,6 +170,7 @@
 												  'msg': msg}, function(data) {
 					if (data['Status'] == 0) {
 						$('#msgbox input').val('');
+						loadNew();
 					}
 				});
 			}
@@ -272,6 +362,7 @@
 </div>    
 {% endif %}
 
+{% if User.IsModerator %}
 <div class="modal hide fade" id="destroyRoom">
   <div class="modal-header">
     <h3>Destroy the room</h3>
@@ -339,6 +430,8 @@
     <a href="#" class="btn btn-primary">Save</a>
   </div>
 </div> 
+    
+{% endif %}
 
 <div class="container-fluid">
 	<div class="row-fluid">
@@ -349,20 +442,15 @@
 			</div>
 			<ul class="nav nav-list well">
 				<li class="nav-header">Room</li>
-				<li id="roomName">PTP Mafia #36 - Priests</li>
+				<li id="roomName"></li>
 				<li class="nav-header">Description</li>
-				<li class="text-justify" id="roomDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis velit sagittis, lacinia ligula et, sollicitudin felis. Nunc molestie velit a enim interdum hendrerit. Nullam ultricies, nulla at pellentesque viverra, lacus orci placerat nunc, ac iaculis nulla purus ac libero. Sed at erat non tortor cursus pretium nec non neque.</li>
+				<li class="text-justify" id="roomDesc"></li>
 				<li class="divider"></li>
 				<li><a href="#">Save all messages as a text file</a></li>
 				<li><a href="#">Logout</a></li>
 			</ul>
 			<ul class="nav nav-list well" id="permitsMenu">
 				<li class="nav-header">Permits</li>
-				<li>11247</li>
-				<li>65789</li>
-				<li>34276</li>
-				<li>44776</li>
-				<li>21437</li>
 			</ul>
 			{% if User.IsModerator %}
 			<ul class="nav nav-list well" id="adminMenu">
@@ -382,102 +470,6 @@
 				</div>
 			</form>
 			<div id="chatbox">
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote class="pull-right">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote class="pull-right">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
-				<div class="well well-small clearfix">
-					<blockquote>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-						<small>Someone famous <cite title="Source Title">Source Title</cite></small>
-					</blockquote>
-				</div>
 			</div>
 		</div>
 	</div>

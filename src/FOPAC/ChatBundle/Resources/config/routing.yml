@@ -61,4 +61,12 @@ send_msg:
     defaults: { _controller: FOPACChatBundle:Chat:send }
     methods: ["POST"]
 
+new_msg:
+    path: /ajax/chat/new
+    defaults: { _controller: FOPACChatBundle:Chat:newMessages }
+    methods: ["POST"]
+
+old_msg:
+    path: /ajax/chat/old
+    defaults: { _controller: FOPACChatBundle:Chat:oldMessages }
     methods: ["POST"]

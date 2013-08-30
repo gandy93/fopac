@@ -4,7 +4,7 @@ namespace FOPAC\ChatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="FOPAC\ChatBundle\Entity\MessageRepository")
  * @ORM\Table(name="messages")
  * @ORM\HasLifecycleCallbacks()
  */
