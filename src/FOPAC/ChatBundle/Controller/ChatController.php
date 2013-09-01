@@ -4,6 +4,7 @@ namespace FOPAC\ChatBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use FOPAC\ChatBundle\Entity\Room;
 use FOPAC\ChatBundle\Entity\Permit;
 use FOPAC\ChatBundle\Entity\Message;
@@ -37,6 +38,23 @@ class ChatController extends Controller
 		}
 
 		return $this->render('FOPACChatBundle:Chat:index.html.twig', $param);
+	}
+
+	function dllAction($permitId, $auth, $pass)
+	{
+		$user = $this->getDoctrine()->getRepository('FOPACChatBundle:Permit')->find($permitId);
+		if ($user && $user->getAuthHash() == $auth) {
+			$room = $user->getRoom();
+			if ($room->getPassphrase() == $pass) {
+				$param = array('Status' => 0, 
+							   'Room' => $room);
+				$r = new Response($this->renderView('FOPACChatBundle:Chat:dll.txt.twig', $param), 200, array('Content-Type' => 'text/plain',
+																											 'Content-Disposition' => 'attachment; filename="'.$room->getTitle().'.txt"'));
+				return $r;
+			}
+		}
+
+		
 	}
 
 	public function sendAction(Request $r)

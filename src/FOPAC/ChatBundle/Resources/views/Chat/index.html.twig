@@ -126,7 +126,10 @@
 		function connect() {
 			$(window).focus(function(event) { wfocus = true; $('body').fadeTo(10, 1); });
 			$(window).blur(function(event) { wfocus = false; $('body').fadeTo(10, 0.5); });
-
+			var href = $('#roomInfoMenu a:eq(0)').attr('href').replace('PASSPLACEHOLDERFORTWIG', pass);
+			if (pass == '') { href = href.slice(0,-1) }
+			$('#roomInfoMenu a:eq(0)').attr('href', href);
+			
 			(function pollSidebar() {
 				if (wfocus) {
 					loadSidebarInfo().always(function (data) {
@@ -437,17 +440,19 @@
 	<div class="row-fluid">
 		<div class="span3" id="sidebar">
 			<div class="well">
-				<img src="#" class="pull-left logo" alt="FOPAC's Logo" width="40px" height="40px" />
+				<img src="{{ asset('assets/img/logo.png') }}" class="pull-left logo" alt="FOPAC's Logo" width="40px" height="40px" />
 				<p><strong>FOPAC</strong> <small>['fopak]</small> is a Free Online Private Anonymous Chat system.</p>
 			</div>
-			<ul class="nav nav-list well">
+			<ul class="nav nav-list well" id="roomInfoMenu">
 				<li class="nav-header">Room</li>
 				<li id="roomName"></li>
 				<li class="nav-header">Description</li>
 				<li class="text-justify" id="roomDesc"></li>
 				<li class="divider"></li>
-				<li><a href="#">Save all messages as a text file</a></li>
-				<li><a href="#">Logout</a></li>
+				<li><a href="{{ path('dll_chat', {'permitId': User.PermitID,
+												  'auth': User.AuthHash,
+												  'pass': 'PASSPLACEHOLDERFORTWIG'}) }}">Save all messages as a text file</a></li>
+				<li><a href="{{ path('home_page') }}">Logout</a></li>
 			</ul>
 			<ul class="nav nav-list well" id="permitsMenu">
 				<li class="nav-header">Permits</li>

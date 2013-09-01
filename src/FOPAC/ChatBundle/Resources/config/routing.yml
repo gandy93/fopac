@@ -12,6 +12,9 @@ chat_page:
     path: /chat/{permitId}/{auth}
     defaults: { _controller: FOPACChatBundle:Chat:index }
 
+dll_chat: 
+    path: /download/{permitId}/{auth}/{pass}
+    defaults: { _controller: FOPACChatBundle:Chat:dll, pass: '' }
 
 # Ajax API
 create_room:
