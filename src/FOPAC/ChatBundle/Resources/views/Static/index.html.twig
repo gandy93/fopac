@@ -1,5 +1,11 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+<style type="text/css">
+	.ie .logo { width: 150px; height: 150px; }
+</style>
+{% endblock %}
+
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('assets/js/sha3.js') }}"></script>
 <script type="text/javascript">
@@ -39,16 +45,19 @@
 {% block body %}
 <div class="container-fluid">
 	<div class="hero-unit">
-		<img src="{{ asset('assets/img/logo.png') }}" class="pull-left" alt="FOPAC's Logo" width="150px" height="150px" />
+		<img src="{{ asset('assets/img/logo.png') }}" class="pull-left logo" alt="FOPAC's Logo" width="150px" height="150px" />
 		<h1>FOPAC </h1>
 		<p><strong>FOPAC</strong> <small>['fopak]</small> is a Free Online Private Anonymous Chat system.</p>
 	</div>
 	<div class="row-fluid">
 		<div class="span6 well text-justify">
 			<h2>About FOPAC</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis velit sagittis, lacinia ligula et, sollicitudin felis. Nunc molestie velit a enim interdum hendrerit. Nullam ultricies, nulla at pellentesque viverra, lacus orci placerat nunc, ac iaculis nulla purus ac libero. Sed at erat non tortor cursus pretium nec non neque. Aliquam volutpat convallis nisl, eget faucibus ligula suscipit congue. Etiam gravida ipsum sed metus sollicitudin dapibus. Vestibulum suscipit interdum metus in fringilla. Fusce ac enim nec est eleifend ultrices feugiat ac risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin ante neque, fermentum ac consequat a, sagittis commodo velit.</p>
-			<p>Curabitur hendrerit ante eget eros congue, eget sagittis tortor facilisis. Sed viverra odio et tellus tincidunt pulvinar. Sed sem sapien, scelerisque ut ultricies luctus, ultrices at sem. Vestibulum diam turpis, vestibulum suscipit libero vestibulum, commodo imperdiet nibh. Quisque aliquam, ipsum molestie tristique adipiscing, magna nulla tempus turpis, a ornare ipsum enim eget lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis scelerisque venenatis ultrices. Nam libero tortor, scelerisque quis quam ut, scelerisque dapibus quam. Morbi tempus interdum lacus, a suscipit augue congue eu. Etiam sit amet dictum leo. Donec condimentum sed risus ac feugiat. Cras condimentum luctus posuere.</p>
-			<p>Sed rhoncus dui sodales ipsum ultrices volutpat. Cras rhoncus volutpat elit, at pellentesque arcu varius eu. Quisque ipsum mi, tempus eu imperdiet eget, gravida sit amet orci. Fusce fermentum accumsan elit vitae convallis. Praesent sit amet bibendum enim. Integer ipsum lectus, lacinia ac feugiat sed, rhoncus et libero. Etiam tincidunt et nibh ac aliquam. Cras felis massa, suscipit mollis placerat sed, sagittis vitae ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta magna nulla, scelerisque rhoncus dui suscipit adipiscing. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+			<p>FOPAC provides fast and easy-to-setup private chat rooms. After you create a new room, you may generate Permits, a unique access links to your room, which you then may give to desired participants in the communication. All members of the room (except moderators specified by you) can see only 10 characters long randomly generated nicknames. When you don't have a need for the room anymore, you may destroy it along with all messages and permits or just stop using it for a week. All rooms inactive for seven or more days are automatically destroyed. There is no registration.</p>
+			<p>FOPAC is optimized for use in the latest versions of Google Chrome (or most WebKit-based browsers) and Mozilla Firefox. Enabling JavaScript is required and enabling Adobe Flash is recommended.</p>
+			<p>FOPAC is powered by <a href="http://symfony.com/">Symfony 2.3</a>, <a href="http://getbootstrap.com/2.3.2/">Bootstrap 2.3</a>, <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome 3.2</a>, <a href="https://github.com/rafaelp/css_browser_selector">CSS Browser Selector</a>, <a href="https://code.google.com/p/crypto-js/">CryptoJS 3.1</a> and <a href="http://jquery.com/
+">jQuery 1.10</a> with plugins <a href="http://zeroclipboard.org/">ZeroClipboard</a>, <a href="http://timeago.yarp.com/">Timeago</a>, <a href="https://github.com/uudashr/jquery-linkify">Linkify</a> and <a href="https://github.com/linyows/jquery-emoji">Emoji</a>. FOPAC's code base is open-sourced and licensed under <a href="http://opensource.org/licenses/mit-license.php">the MIT License</a>. The source can be found on <a href="https://github.com/gandy93/fopac">GitHub</a>.</p>
+			<p>FOPAC is one man project. Like all one man projects, it is susceptible to errors and shortcomings that were unnoticed by its developer. All bug reports, suggestions, improvements, constructive reviews and questions are more than welcome. You may post them on <a href="https://github.com/gandy93/fopac">GitHub</a> or mail them to support [AT] fopak.tk.</p>
+			<p>Copyright &copy; 2013 gandy93</p>
 		</div>
 		<div class="span6 well">
 			<h2>Create a new FOPAC room</h2>

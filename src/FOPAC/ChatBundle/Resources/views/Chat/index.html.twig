@@ -1,5 +1,14 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+<style type="text/css">
+	.chrome .input-prepend.input-append.input-block-level > input {	width: 90%;	}
+	.gecko .input-prepend.input-append.input-block-level > input { width: 90%; }
+	.ie .emoji { width: 20px; height: 20px; }
+	.ie .logo { width: 40px; height: 40px; }
+</style>
+{% endblock %}
+
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('assets/js/sha3.js') }}"></script>
 <script type="text/javascript" src="{{ asset('assets/js/jquery.zclip.min.js') }}"></script>
@@ -451,8 +460,8 @@
 				<li class="divider"></li>
 				<li><a href="{{ path('dll_chat', {'permitId': User.PermitID,
 												  'auth': User.AuthHash,
-												  'pass': 'PASSPLACEHOLDERFORTWIG'}) }}">Save all messages as a text file</a></li>
-				<li><a href="{{ path('home_page') }}">Logout</a></li>
+												  'pass': 'PASSPLACEHOLDERFORTWIG'}) }}"><i class="icon-download-alt"> </i>Download all messages</a></li>
+				<li><a href="{{ path('home_page') }}"><i class="icon-off"> </i>Logout</a></li>
 			</ul>
 			<ul class="nav nav-list well" id="permitsMenu">
 				<li class="nav-header">Permits</li>
@@ -460,9 +469,9 @@
 			{% if User.IsModerator %}
 			<ul class="nav nav-list well" id="adminMenu">
 				<li class="nav-header">Administration</li>
-				<li><a href="#">Manage Permits</a></li>
-				<li><a href="#">Edit Room</a></li>
-				<li><a href="#">Destroy Room</a></li>
+				<li><a href="#"><i class="icon-reorder"> </i>Manage Permits</a></li>
+				<li><a href="#"><i class="icon-edit"> </i>Edit Room</a></li>
+				<li><a href="#"><i class="icon-trash"> </i>Destroy Room</a></li>
 			</ul>
 			{% endif %}
 		</div>
