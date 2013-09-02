@@ -254,4 +254,21 @@ class RoomController extends Controller
     	$res->setData(array('Status' => 1));
     	return $res;
     }
+
+    public function cleanAction($secret)
+    {
+    	if ($secret == $this->container->getParameter('clean_secret')) {
+    		$date = new \DateTime(); $date = $date->sub(new \DateInterval('P7D'));
+    		$em = $this->getDoctrine()->getManager();
+    		$rooms = $em->createQuery('SELECT r FROM FOPACChatBundle:Room r WHERE (r.lastAccessAt < :date OR r.lastAccessAt IS NULL)')
+    		->setParameter('date', $date)->getResult();
+
+            foreach ($rooms as $i => $r) { $em->remove($r); }
+            $em->flush();
+
+            return new JsonResponse(array('Status' => 0));
+    	}
+
+    	return new JsonResponse(array('Status' => 1));
+    }    
 }

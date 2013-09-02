@@ -16,6 +16,10 @@ dll_chat:
     path: /download/{permitId}/{auth}/{pass}
     defaults: { _controller: FOPACChatBundle:Chat:dll, pass: '' }
 
+clean_rooms:
+    path: /clean/{secret}
+    defaults: { _controller: FOPACChatBundle:Room:clean }
+
 # Ajax API
 create_room:
     path: /ajax/room/new
