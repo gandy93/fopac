@@ -58,6 +58,11 @@ class appProdUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirecta
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'dll_chat')), array (  '_controller' => 'FOPAC\\ChatBundle\\Controller\\ChatController::dllAction',  'pass' => '',));
         }
 
+        // clean_rooms
+        if (0 === strpos($pathinfo, '/clean') && preg_match('#^/clean/(?P<secret>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'clean_rooms')), array (  '_controller' => 'FOPAC\\ChatBundle\\Controller\\RoomController::cleanAction',));
+        }
+
         if (0 === strpos($pathinfo, '/ajax')) {
             if (0 === strpos($pathinfo, '/ajax/room')) {
                 // create_room

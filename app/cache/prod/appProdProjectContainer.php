@@ -968,6 +968,7 @@ class appProdProjectContainer extends Container
         $instance->addExtension(new \Symfony\Bundle\AsseticBundle\Twig\AsseticExtension($this->get('assetic.asset_factory'), $this->get('templating.name_parser'), false, array(), array(), new \Symfony\Bundle\AsseticBundle\DefaultValueSupplier($this)));
         $instance->addExtension(new \Doctrine\Bundle\DoctrineBundle\Twig\DoctrineExtension());
         $instance->addGlobal('app', $this->get('templating.globals'));
+        $instance->addGlobal('email', 'support@fopac.cu.cc');
         return $instance;
     }
     protected function getTwig_Controller_ExceptionService()
@@ -1094,7 +1095,7 @@ class appProdProjectContainer extends Container
             'kernel.root_dir' => 'E:/xampp/htdocs/local/fopac/app',
             'kernel.environment' => 'prod',
             'kernel.debug' => false,
-            'kernel.name' => 'app',
+            'kernel.name' => 'ap_',
             'kernel.cache_dir' => 'E:/xampp/htdocs/local/fopac/app/cache/prod',
             'kernel.logs_dir' => 'E:/xampp/htdocs/local/fopac/app/logs',
             'kernel.bundles' => array(
@@ -1116,12 +1117,14 @@ class appProdProjectContainer extends Container
             'database_name' => 'fopac',
             'database_user' => 'fopac',
             'database_password' => 'fopac',
+            'app.mail' => 'support@fopac.cu.cc',
             'mailer_transport' => 'smtp',
             'mailer_host' => '127.0.0.1',
             'mailer_user' => NULL,
             'mailer_password' => NULL,
             'locale' => 'en',
             'secret' => 'c1a56fbbf58ecf42175d71010fa5b88d81',
+            'clean_secret' => '1e0c1293232d317fe9830787f3d9ae7a89be3004e0ae49e564b7e97aa1142aa1',
             'database_path' => NULL,
             'controller_resolver.class' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerResolver',
             'controller_name_converter.class' => 'Symfony\\Bundle\\FrameworkBundle\\Controller\\ControllerNameParser',
