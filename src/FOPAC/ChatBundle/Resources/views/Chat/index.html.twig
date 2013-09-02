@@ -1,0 +1,491 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+<style type="text/css">
+	.chrome .input-prepend.input-append.input-block-level > input {	width: 90%;	}
+	.gecko .input-prepend.input-append.input-block-level > input { width: 90%; }
+	.ie .emoji { width: 20px; height: 20px; }
+	.ie .logo { width: 40px; height: 40px; }
+</style>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('assets/js/sha3.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.zclip.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.timeago.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.linkify.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/js/jquery.emoji.js') }}"></script>
+<script type="text/javascript">
+	$(function () {		
+		var pass = '', room = {}, permits = {}, topMsg = {'id': -1, 'nick': '', 'right': true}, 
+		bottomMsg = {'id': -1, 'nick': '', 'right': true}, wfocus = true;
+
+		{% if HasPassphrase %} 
+		
+		$('#passBox').modal({ // Passphrase protection
+			keyboard: false,
+			backdrop: 'static'
+		}).modal('show');
+		$('#passBox a.btn-primary').click(function(event) {
+			event.preventDefault();
+			
+			pass = CryptoJS.SHA3($('input[name="passphrase"]').val(), { outputLength: 256 }).toString(CryptoJS.enc.Hex);
+			$.post('{{ path("check_pass") }}', {'roomId': {{ RoomID }}, 'passphrase': pass}, function(data) {
+				if (data['Status'] == 0) { 
+					$('#passBox').modal('hide');
+					connect();
+				 } else { 
+					$('#badPassAlert').show(300).delay(5000).hide(600); 
+				}
+			});
+		});
+		$('input[name="passphrase"]').keypress(function(event) {
+			if (event.which == 13) { $('#passBox a.btn-primary').click(); }
+		});    
+		{% endif %}
+
+		{% if HasPassphrase == false %}
+		    connect();
+		{% endif %}
+
+		function loadSidebarInfo () {
+			return $.post("{{ path("sidebar_info") }}", {"roomId": {{ RoomID }}, 
+												"passphrase": pass,
+												"auth": "{{ User.AuthHash }}" }, function(data) {
+				room = data['Room'];  permits = data['Permits'];
+				$('#roomName').text(room['title']);  $('#roomDesc').text(room['description']);
+				console.log('PERMITS: ', data['Permits']);
+				$('#permitsMenu').empty().append('<li class="nav-header">Permits</li>');
+				$.each(permits, function(i, val) {
+				 	 var $p = $('<li class="mono"></li>').appendTo('#permitsMenu');
+				 	 $p.append('<i class="icon-user"> </i>'+val['nick']);
+				 	 if (val['Online']) { $p.append('  <span class="label label-success">Online&nbsp;</span>')}
+				 	 else { $p.append('  <span class="label label-important">Offline</span>')};
+				 	 if (val['isModerator']) { $p.append('  <span class="label label-info">Moderator</span>')};
+				 }); 
+			});
+		}
+
+		function loadNew() {
+			return $.post('{{ path("new_msg") }}', {'auth': '{{ User.AuthHash }}',
+											 'passphrase': pass,
+											 'last': topMsg['id']}, function(data) {
+				if (data['Status'] == 0) {
+					$.each(data['msg'], function(i, v) {
+						 var $d = $('<div class="well well-small clearfix message"></div>'),
+						 $b = $('<blockquote></blockquote>').append('<p>'+v['text']+'</p>')
+						 .append('<small><cite title="'+v['nick']+'" class="mono">'+v['nick']+'</cite> wrote <abbr class="timeago" title="'+v['time']+'"></abbr></small>');
+
+						 if (topMsg['right']) {
+						 	if (topMsg['nick'] == v['nick'] ) { $b.addClass('pull-right'); }
+						 	else { topMsg['right'] = false; }
+						 } else {
+						 	if (topMsg['nick'] != v['nick']) { 
+								$b.addClass('pull-right');
+						 		topMsg['right'] = true; }
+						 }
+
+						 $d.append($b).prependTo('#chatbox');
+						 $d.linkify({target: '_blank'}).emoji();
+						 topMsg['id'] = v['id']; topMsg['nick'] = v['nick'];
+						 if (bottomMsg['id'] < 0) {
+						 	bottomMsg['id'] = v['id']; bottomMsg['nick'] = v['nick']; 
+						 	bottomMsg['right'] = topMsg['right'];
+						 }
+					});
+					$('abbr.timeago').timeago();
+
+				}
+			});
+		}
+
+		function loadOld() {
+			$.post('{{ path("old_msg") }}', {'auth': '{{ User.AuthHash }}',
+											 'passphrase': pass,
+											 'first': bottomMsg['id']}, function(data) {
+				if (data['Status'] == 0) {
+					$.each(data['msg'], function(i, v) {
+						 var $d = $('<div class="well well-small clearfix message"></div>'),
+						 $b = $('<blockquote></blockquote>').append('<p>'+v['text']+'</p>')
+						 .append('<small><cite title="'+v['nick']+'" class="mono">'+v['nick']+'</cite> wrote <abbr class="timeago" title="'+v['time']+'"></abbr></small>');
+
+						 if (bottomMsg['right']) {
+						 	if (bottomMsg['nick'] == v['nick'] ) { $b.addClass('pull-right'); }
+						 	else { bottomMsg['right'] = false; }
+						 } else {
+						 	if (bottomMsg['nick'] != v['nick']) { 
+								$b.addClass('pull-right');
+						 		bottomMsg['right'] = true; }
+						 }
+
+						 $d.append($b).appendTo('#chatbox');
+						 $d.linkify({target: '_blank'}).emoji();
+						 bottomMsg['id'] = v['id']; bottomMsg['nick'] = v['nick'];
+						 if (topMsg['id'] < 0) {
+						 	topMsg['id'] = v['id']; topMsg['nick'] = v['nick']; 
+						 	topMsg['right'] = bottomMsg['right'];
+						 }
+					});
+					$('abbr.timeago').timeago();
+					
+				}
+			});
+		}
+
+		function connect() {
+			$(window).focus(function(event) { wfocus = true; $('body').fadeTo(10, 1); });
+			$(window).blur(function(event) { wfocus = false; $('body').fadeTo(10, 0.5); });
+			var href = $('#roomInfoMenu a:eq(0)').attr('href').replace('PASSPLACEHOLDERFORTWIG', pass);
+			if (pass == '') { href = href.slice(0,-1) }
+			$('#roomInfoMenu a:eq(0)').attr('href', href);
+			
+			(function pollSidebar() {
+				if (wfocus) {
+					loadSidebarInfo().always(function (data) {
+						setTimeout(function() {pollSidebar()}, 2.5*60*1000);
+					});
+				} else { setTimeout(function() {pollSidebar()}, 2*1000);}				
+			})();
+
+			(function pollMessages() {
+				if (wfocus) {
+					loadNew().always(function (data) {
+						setTimeout(function() {pollMessages()}, 5*1000);
+					});
+				} else { setTimeout(function() {pollMessages()}, 2*1000); }				
+			})();
+
+			$(window).scroll(function() {
+				if($(window).scrollTop() + $(window).height() == $(document).height()) {
+					loadOld();
+				}
+			});
+		}
+
+		$(document).keydown(function(event) {
+			if ($('.modal:visible').size() == 0 && !event.ctrlKey && !event.metaKey) {
+				var k = event.which;
+				if ((k >= 65 && k <= 90) || (k >= 48 && k <= 57) || (k >= 96 && k <= 105) // [a-zA-Z0-9]
+					|| ($.inArray(k, [32, 106, 107, 109, 110, 111]) > -1) || (k >= 186 && k <= 192) 
+					|| (k >= 219 && k <= 222)) {
+					$('#msgbox input').focus();
+				}
+			}			
+		});
+
+		$('#msgbox button').click(function(event) {
+			event.preventDefault();
+			var msg = $('#msgbox input').val().trim();
+			if (msg != '') {
+				$.post('{{ path("send_msg") }}', {'auth': '{{ User.AuthHash }}',
+												  'passphrase': pass,
+												  'msg': msg}, function(data) {
+					if (data['Status'] == 0) {
+						$('#msgbox input').val('');
+						loadNew();
+					}
+				});
+			}
+		});
+
+		$('#msgbox input').keydown(function(event) {
+			if (event.which == 13) { 
+				event.preventDefault();
+				$('#msgbox button').click(); 
+			} else if (event.which == 27) { $('#msgbox input').blur(); }
+		});
+
+		{% if User.IsModerator %}
+		// Destroy room
+		$('#adminMenu li:nth-child(4)').click(function(event) {
+			event.preventDefault();
+			$('#destroyRoom').modal('show');
+
+			$('#destroyRoom .btn:eq(0)').click(function(event) {
+				event.preventDefault();
+				$('#destroyRoom').modal('hide');
+			});
+			$('#destroyRoom .btn:eq(1)').click(function(event) {
+				event.preventDefault();
+				$.post("{{ path('destroy_room') }}", {'roomId': {{ RoomID }}, 
+													  'passphrase': pass,
+													  'auth': "{{ User.AuthHash }}" }, function(data) {
+					window.location.replace("{{ path("home_page", {}, true) }}" );
+				});
+			});
+		});
+
+		// Manage Permits
+		$('#adminMenu li:nth-child(2)').click(function(event) {
+			event.preventDefault();
+			$('#managePermits').modal('show');
+
+			var clip = new ZeroClipboard( $("#managePermits .icon-copy"), { moviePath: "{{ asset('assets/js/ZeroClipboard.swf') }}"} );
+			clip.on( 'complete', function(client, args) {
+				var id = $(this).parents('tr').find('td:eq(0)').text();
+				$('<div class="alert alert-info">Permit #'+id+' has been copied to your clipboard.</div>')
+				.appendTo('#managePermits .modal-body').delay(5000).hide(600); 
+			});
+
+			function iconRemove(event) {
+				event.preventDefault();
+				var $row = $(this).parents('tr');				
+				$.post('{{ path("remove_permit") }}', {'pass': pass,
+													   'auth': '{{ User.AuthHash }}',
+													   'id': parseInt($row.find('td:eq(0)').text())}, function(data) {
+					if (data['Status'] == 0) { $row.remove(); }
+				});
+			}
+
+			function permitChange() {
+				event.preventDefault();
+				var $row = $(this).parents('tr');				
+				$.post('{{ path("change_permit") }}', {'pass': pass,
+													   'auth': '{{ User.AuthHash }}',
+													   'id': parseInt($row.find('td:eq(0)').text()),
+													   'mod': $(this).prop('checked')}, function(data) {
+					if (data['Status'] == 0) { }
+				});
+			}
+
+			$('#managePermits').on('shown', function () {
+				var $t = $('#managePermits tbody');  $t.empty();
+				$.each(permits, function(i, val) {
+					$r = $('<tr></tr>');
+					$r.append('<td>'+val['id']+'</td>')
+					.append('<td class="text-justify"><a href="'+val['authURL']+'">'+val['authHash'].substring(0, 9)+'<span class="muted">'+val['authHash'].substring(10)+'</span></a></td>');
+					if (val['isModerator']) { 
+						$r.append('<td><input type="checkbox" value="'+val['id']+'" checked /></td>');					
+					} else {
+						$r.append('<td><input type="checkbox" value="'+val['id']+'" /></td>');					
+					}
+					$r.append('<td class="clearfix"><i class="icon-remove pull-right"> </i><i class="icon-copy pull-right" data-clipboard-text="'+val["authURL"]+'"> </i></td>').appendTo($t);		
+					clip.glue($r.find('.icon-copy'));			
+					$r.find('.icon-remove').click(iconRemove);
+					$r.find('input').change(permitChange);
+				});
+				
+			});
+
+			$('#managePermits').on('hidden', function () {
+				loadSidebarInfo();
+			});
+
+			$('#managePermits .icon-plus').click(function(event) {
+				event.preventDefault();
+				var mod = $('#addMod').prop('checked');
+				$.post('{{ path("add_permit") }}', {'pass': pass,
+													'auth': '{{ User.AuthHash }}',
+													'mod': $('#addMod').prop('checked')}, function(data) {
+					if (data['Status'] == 0) {
+						$r = $('<tr></tr>');
+						$r.append('<td>'+data['permitId']+'</td>')
+						.append('<td class="text-justify"><a href="'+data['authURL']+'">'+data['authHash'].substring(0, 9)+'<span class="muted">'+data['authHash'].substring(10)+'</span></a></td>');
+						if (data['mod'] == true) { 
+							$r.append('<td><input type="checkbox" value="'+data['permitId']+'" checked/></td>');					
+						} else {
+							$r.append('<td><input type="checkbox" value="'+data['permitId']+'" /></td>');					
+						}
+						$r.append('<td class="clearfix"><i class="icon-remove pull-right"> </i><i class="icon-copy pull-right" data-clipboard-text="'+data["authURL"]+'"> </i></td>');
+						$('#managePermits tbody').append($r);
+						clip.glue($r.find('.icon-copy'));
+						$r.find('.icon-remove').click(iconRemove);
+						$r.find('input').change(permitChange);
+					}
+				});
+			});
+
+			$('#managePermits .btn').click(function(event) {
+				event.preventDefault();
+				$('#managePermits').modal('hide');				
+			});
+		});
+
+		// Room Info editing
+		$('#adminMenu li:nth-child(3)').click(function(event) {
+			event.preventDefault();
+			$('#editRoom').modal('show');
+
+			$('#editRoom').on('shown', function() {
+				$('#editRoom input[name="title"]').val(room['title']);
+				$('#editRoom textarea[name="desc"]').val(room['description']);
+			});
+
+			$('#editRoom').on('hidden', function() {
+				$('#editRoom .control-group').removeClass('error');
+			});
+
+			$('#editRoom .btn-primary').click(function(event) {
+				event.preventDefault();
+				var title = $('#editRoom input[name="title"]').val(), 
+				desc = $('#editRoom textarea[name="desc"]').val(),
+				oldPass = $('#editRoom input[name="oldPassphrase"]').val(),
+				newPass = $('#editRoom input[name="newPassphrase"]').val();
+
+				if (oldPass != '') { 
+					oldPass = CryptoJS.SHA3(oldPass, { outputLength: 256 }).toString(CryptoJS.enc.Hex); 
+				}
+				if (newPass != '') { 
+					newPass = CryptoJS.SHA3(newPass, { outputLength: 256 }).toString(CryptoJS.enc.Hex); 
+				}
+
+				if (oldPass == pass) {
+					$.post('{{ path("edit_room") }}', {'room': {'id': {{ RoomID }},
+																'title': title,
+																'desc': desc,
+																'pass': oldPass,
+																'newPass': newPass},
+													   'auth': "{{ User.AuthHash }}"}, function(data) {
+						if (data['Status'] == 0) {		
+							if (oldPass != newPass)	{ pass = newPass;}				
+							$('#editRoom').modal('hide');
+							loadSidebarInfo();
+						}
+					});
+				} else { $('#editRoom .control-group').addClass('error'); }
+			});
+
+			$('#editRoom .btn:eq(0)').click(function(event) {
+				event.preventDefault();
+				$('#editRoom').modal('hide');
+			});
+		});
+
+		{% endif %}
+	});
+</script>
+{% endblock %}
+
+{% block body %}
+{% if HasPassphrase %}
+<div class="modal hide fade" id="passBox">
+  <div class="modal-header">
+    <h3>Enter the passphrase</h3>
+  </div>
+  <div class="modal-body">
+    <p>You're attempting to access a room protected by a passphrase. Please enter the passphrase below.</p>
+    <div class="alert alert-error hide" id="badPassAlert">Incorrect passphrase.</div>
+    <input type="password" class="input-block-level" name="passphrase" />
+  </div>
+  <div class="modal-footer">
+    <a href="{{ path('home_page') }}" class="btn">Close</a>
+    <a href="#" class="btn btn-primary">OK</a>
+  </div>
+</div>    
+{% endif %}
+
+{% if User.IsModerator %}
+<div class="modal hide fade" id="destroyRoom">
+  <div class="modal-header">
+    <h3>Destroy the room</h3>
+  </div>
+  <div class="modal-body">
+    <p>This action will permanently delete all messages and permits. Are you sure?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary">No</a>
+    <a href="#" class="btn">Yes</a>
+  </div>
+</div> 
+
+<div class="modal hide fade" id="managePermits">
+  <div class="modal-header">
+    <h3>Manage Permits</h3>
+  </div>
+  <div class="modal-body">
+  	<table class="table table-condensed">
+  		<thead>
+  			<tr>
+  				<td>#</td>
+  				<td>AuthHash</td>
+  				<td>Mod?</td>
+  				<td></td>
+  			</tr>
+  		</thead>
+  		<tbody>  			
+  		</tbody>
+  		<tfoot>
+  			<tr>
+  				<td></td>
+  				<td></td>
+  				<td><input type="checkbox" value="add" id="addMod"></td>
+  				<td class="clearfix"><i class="icon-plus pull-right"> </i></td>
+  			</tr>
+  		</tfoot>
+  	</table>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary">Close</a>
+  </div>
+</div> 
+
+<div class="modal hide fade" id="editRoom">
+  <div class="modal-header">
+    <h3>Edit the room</h3>
+  </div>
+  <div class="modal-body">
+  	<form action="">
+  		<label>Title</label>
+  		<input class="input-block-level" type="text" name="title" />
+  		<label>Description</label>
+  		<textarea class="input-block-level" rows="5" name="desc"></textarea>
+  		<div class="control-group">
+  			<label class="control-label">Old Passphrase</label>
+  			<input class="input-block-level" type="password" name="oldPassphrase" />
+  		</div>  		
+  		<label>New Passphrase</label>
+  		<input class="input-block-level" type="password" name="newPassphrase" />
+  	</form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn">Close</a>
+    <a href="#" class="btn btn-primary">Save</a>
+  </div>
+</div> 
+    
+{% endif %}
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span3" id="sidebar">
+			<div class="well">
+				<img src="{{ asset('assets/img/logo.png') }}" class="pull-left logo" alt="FOPAC's Logo" width="40px" height="40px" />
+				<p><strong>FOPAC</strong> <small>['fopak]</small> is a Free Online Private Anonymous Chat system.</p>
+			</div>
+			<ul class="nav nav-list well" id="roomInfoMenu">
+				<li class="nav-header">Room</li>
+				<li id="roomName"></li>
+				<li class="nav-header">Description</li>
+				<li class="text-justify" id="roomDesc"></li>
+				<li class="divider"></li>
+				<li><a href="{{ path('dll_chat', {'permitId': User.PermitID,
+												  'auth': User.AuthHash,
+												  'pass': 'PASSPLACEHOLDERFORTWIG'}) }}"><i class="icon-download-alt"> </i>Download all messages</a></li>
+				<li><a href="{{ path('home_page') }}"><i class="icon-off"> </i>Logout</a></li>
+			</ul>
+			<ul class="nav nav-list well" id="permitsMenu">
+				<li class="nav-header">Permits</li>
+			</ul>
+			{% if User.IsModerator %}
+			<ul class="nav nav-list well" id="adminMenu">
+				<li class="nav-header">Administration</li>
+				<li><a href="#"><i class="icon-reorder"> </i>Manage Permits</a></li>
+				<li><a href="#"><i class="icon-edit"> </i>Edit Room</a></li>
+				<li><a href="#"><i class="icon-trash"> </i>Destroy Room</a></li>
+			</ul>
+			{% endif %}
+		</div>
+		<div class="span9">
+			<form action="" id="msgbox">
+				<div class="input-prepend input-append input-block-level">
+					<span class="add-on">&lt;{{ User.AuthHash|slice(0, 10) }}&gt;</span>
+					<input class="input-block-level" type="text" name="msg" placeholder="Type a message..." />
+					<button class="btn" type="button">Send!</button>
+				</div>
+			</form>
+			<div id="chatbox">
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

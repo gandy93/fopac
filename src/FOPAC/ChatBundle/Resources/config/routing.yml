@@ -1,3 +1,79 @@
 fopac_chat_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: FOPACChatBundle:Default:index }
+
+home_page:
+    path: /
+    defaults: 
+        _controller: FrameworkBundle:Template:template
+        template: 'FOPACChatBundle:Static:index.html.twig'
+
+chat_page: 
+    path: /chat/{permitId}/{auth}
+    defaults: { _controller: FOPACChatBundle:Chat:index }
+
+dll_chat: 
+    path: /download/{permitId}/{auth}/{pass}
+    defaults: { _controller: FOPACChatBundle:Chat:dll, pass: '' }
+
+clean_rooms:
+    path: /clean/{secret}
+    defaults: { _controller: FOPACChatBundle:Room:clean }
+
+# Ajax API
+create_room:
+    path: /ajax/room/new
+    defaults: { _controller: FOPACChatBundle:Room:create }
+    methods: ['POST']
+
+check_pass:
+    path: /ajax/room/verify-pass
+    defaults: { _controller: FOPACChatBundle:Room:passCheck }
+    methods: ['POST']
+
+destroy_room:
+    path: /ajax/room/destroy
+    defaults: { _controller: FOPACChatBundle:Room:destroy }
+    methods: ['POST']
+
+sidebar_info:
+    path: /ajax/room/info
+    defaults: { _controller: FOPACChatBundle:Room:info }
+    methods: ['POST']
+
+edit_room:
+    path: /ajax/room/edit 
+    defaults: { _controller: FOPACChatBundle:Room:edit }
+    methods: ["POST"]
+
+add_permit:
+    path: /ajax/permit/add
+    defaults: { _controller: FOPACChatBundle:Room:addPermit }
+    methods: ["POST"]
+
+remove_permit:
+    path: /ajax/permit/remove
+    defaults: { _controller: FOPACChatBundle:Room:removePermit }
+    methods: ["POST"]
+
+change_permit:
+    path: /ajax/permit/change
+    defaults: { _controller: FOPACChatBundle:Room:changePermit }
+    methods: ["POST"]
+
+####################################################################
+
+send_msg:
+    path: /ajax/chat/send
+    defaults: { _controller: FOPACChatBundle:Chat:send }
+    methods: ["POST"]
+
+new_msg:
+    path: /ajax/chat/new
+    defaults: { _controller: FOPACChatBundle:Chat:newMessages }
+    methods: ["POST"]
+
+old_msg:
+    path: /ajax/chat/old
+    defaults: { _controller: FOPACChatBundle:Chat:oldMessages }
+    methods: ["POST"]

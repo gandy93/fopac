@@ -4,12 +4,416 @@
 		"selected_items":
 		[
 			[
-				"n",
-				"name"
+				"st",
+				"style	Tag"
 			],
 			[
-				"st",
-				"static_pages"
+				"Fo",
+				"FOPAC"
+			],
+			[
+				"re",
+				"replace"
+			],
+			[
+				"p",
+				"pass"
+			],
+			[
+				"array_r",
+				"array_reverse"
+			],
+			[
+				"lo",
+				"loadOld"
+			],
+			[
+				"bo",
+				"body"
+			],
+			[
+				"bl",
+				"blur	.blur"
+			],
+			[
+				"wi",
+				"window"
+			],
+			[
+				"ti",
+				"title"
+			],
+			[
+				"tim",
+				"time"
+			],
+			[
+				"ch",
+				"chatbox"
+			],
+			[
+				"prep",
+				"prependTo	.prependTo()"
+			],
+			[
+				"pu",
+				"pull-right"
+			],
+			[
+				"add",
+				"addClass	addClass"
+			],
+			[
+				"mess",
+				"message"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"fo",
+				"foreach	foreach …"
+			],
+			[
+				"ar",
+				"array"
+			],
+			[
+				"js",
+				"json_encode"
+			],
+			[
+				"r",
+				"room"
+			],
+			[
+				"ro",
+				"room"
+			],
+			[
+				"F",
+				"FOPAC"
+			],
+			[
+				"th",
+				"This"
+			],
+			[
+				"fop",
+				"FOPAC"
+			],
+			[
+				"ke",
+				"keydown	keydown"
+			],
+			[
+				"wh",
+				"which"
+			],
+			[
+				"tr",
+				"trim	$.trim()"
+			],
+			[
+				"msg",
+				"msgbox"
+			],
+			[
+				"html",
+				"htmlspecialchars"
+			],
+			[
+				"fl",
+				"flush"
+			],
+			[
+				"getM",
+				"getManager"
+			],
+			[
+				"pe",
+				"permitChange"
+			],
+			[
+				"pr",
+				"prop	.prop() - single"
+			],
+			[
+				"ic",
+				"iconRemove"
+			],
+			[
+				"permi",
+				"permitId"
+			],
+			[
+				"i",
+				"icon-copy"
+			],
+			[
+				"el",
+				"else"
+			],
+			[
+				"au",
+				"AuthHash"
+			],
+			[
+				"che",
+				"checked"
+			],
+			[
+				"auth",
+				"authHash"
+			],
+			[
+				"P",
+				"Permit"
+			],
+			[
+				"a",
+				"ajax"
+			],
+			[
+				"d",
+				"data	.data()"
+			],
+			[
+				"R",
+				"RoomID"
+			],
+			[
+				"ne",
+				"newPass"
+			],
+			[
+				"co",
+				"control-group"
+			],
+			[
+				"ad",
+				"addClass	addClass"
+			],
+			[
+				"ol",
+				"oldPass"
+			],
+			[
+				"oldp",
+				"oldPass"
+			],
+			[
+				"new",
+				"newPass"
+			],
+			[
+				"tex",
+				"text	.text"
+			],
+			[
+				"mod",
+				"modal-body"
+			],
+			[
+				"ap",
+				"appendTo	.appendTo()"
+			],
+			[
+				"fu",
+				"fun	function …"
+			],
+			[
+				"c",
+				"click	click"
+			],
+			[
+				"is",
+				"isModerator"
+			],
+			[
+				"fa",
+				"false"
+			],
+			[
+				"ism",
+				"IsModerator"
+			],
+			[
+				"ha",
+				"HasPassphrase"
+			],
+			[
+				"cl",
+				"class"
+			],
+			[
+				"fun",
+				"fun	Function"
+			],
+			[
+				"al",
+				"alert"
+			],
+			[
+				"de",
+				"defaults"
+			],
+			[
+				"roo",
+				"Room"
+			],
+			[
+				"ma",
+				"managePermits"
+			],
+			[
+				"set",
+				"setData"
+			],
+			[
+				"Res",
+				"response"
+			],
+			[
+				"ho",
+				"home_page"
+			],
+			[
+				"te",
+				"the"
+			],
+			[
+				"get",
+				"get	$.get()"
+			],
+			[
+				"k",
+				"keypress	keypress"
+			],
+			[
+				"t",
+				"title"
+			],
+			[
+				"pass",
+				"passphrase"
+			],
+			[
+				"pas",
+				"HasPassphrase"
+			],
+			[
+				"bt",
+				"btn-primary"
+			],
+			[
+				"pa",
+				"param"
+			],
+			[
+				"cont",
+				"container-fluid"
+			],
+			[
+				"marg",
+				"margin-bottom"
+			],
+			[
+				"w",
+				"width"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"if",
+				"ifb	if (block)"
+			],
+			[
+				"Perm",
+				"permitId"
+			],
+			[
+				"Da",
+				"DateTime"
+			],
+			[
+				"par",
+				"parent	.parent()"
+			],
+			[
+				"ac",
+				"action	Attr"
+			],
+			[
+				"ret",
+				"return"
+			],
+			[
+				"arr",
+				"array"
+			],
+			[
+				"Re",
+				"Response"
+			],
+			[
+				"ra",
+				"rand"
+			],
+			[
+				"sp",
+				"sprintf"
+			],
+			[
+				"ht",
+				"htmlspecialchars"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"da",
+				"da	Doctrine Many To One Association"
+			],
+			[
+				"dp",
+				"dp	Doctrine DateTime Property"
+			],
+			[
+				"cre",
+				"createdAt"
+			],
+			[
+				"m",
+				"margin"
+			],
+			[
+				"h",
+				"height	Attr"
+			],
+			[
+				"ba",
+				"background-color"
+			],
+			[
+				"o",
+				"onclick	Attr"
+			],
+			[
+				"as",
+				"assets"
+			],
+			[
+				"l",
+				"lang	Attr"
+			],
+			[
+				"n",
+				"name"
 			],
 			[
 				"la",
@@ -20,28 +424,8 @@
 				"render"
 			],
 			[
-				"ti",
-				"title"
-			],
-			[
 				"fi",
 				"find"
-			],
-			[
-				"p",
-				"project"
-			],
-			[
-				"w",
-				"when	when …"
-			],
-			[
-				"fl",
-				"flash	flash[…]"
-			],
-			[
-				"P",
-				"Project"
 			],
 			[
 				"gr",
@@ -52,36 +436,189 @@
 				"mod	module .. end"
 			],
 			[
-				"re",
-				"req	require \"..\""
-			],
-			[
 				"File",
 				"File	File.open(\"..\") { |file| .. }"
 			],
 			[
 				"su",
 				"subject"
-			],
-			[
-				"cl",
-				"cla	class .. end"
-			],
-			[
-				"r",
-				"run_command"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": ".gitignore",
+			"settings":
+			{
+				"buffer_size": 61,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/config/routing.yml",
+			"settings":
+			{
+				"buffer_size": 243,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/FOPAC/ChatBundle/Entity/Room.php",
+			"settings":
+			{
+				"buffer_size": 4948,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/FOPAC/ChatBundle/Entity/Permit.php",
+			"settings":
+			{
+				"buffer_size": 3202,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/FOPAC/ChatBundle/Entity/Message.php",
+			"settings":
+			{
+				"buffer_size": 2573,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/FOPAC/ChatBundle/Entity/MessageRepository.php",
+			"settings":
+			{
+				"buffer_size": 865,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Acme/DemoBundle/Resources/views/layout.html.twig",
+			"settings":
+			{
+				"buffer_size": 1016,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/Resources/views/base.html.twig",
+			"settings":
+			{
+				"buffer_size": 970,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/FOPAC/ChatBundle/Resources/views/Static/index.html.twig",
+			"settings":
+			{
+				"buffer_size": 4642,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/FOPAC/ChatBundle/Resources/views/Chat/index.html.twig",
+			"settings":
+			{
+				"buffer_size": 17509,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/assets/css/main.css",
+			"settings":
+			{
+				"buffer_size": 1147,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "src/FOPAC/ChatBundle/Controller/RoomController.php",
+			"settings":
+			{
+				"buffer_size": 9040,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/FOPAC/ChatBundle/Controller/ChatController.php",
+			"settings":
+			{
+				"buffer_size": 5108,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/assets/js/jquery.emoji.js",
+			"settings":
+			{
+				"buffer_size": 8932,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/FOPAC/ChatBundle/Resources/views/Chat/dll.txt.twig",
+			"settings":
+			{
+				"buffer_size": 273,
+				"line_ending": "Windows",
+				"name": "{{ Room }}"
+			}
+		},
+		{
+			"file": "app/logs/dev.log",
+			"settings":
+			{
+				"buffer_size": 9100791,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "vendor/doctrine/orm/lib/Doctrine/ORM/EntityRepository.php",
+			"settings":
+			{
+				"buffer_size": 8337,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/logs/prod.log",
+			"settings":
+			{
+				"buffer_size": 14915,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 390.0,
+		"height": 269.0,
 		"selected_items":
 		[
+			[
+				"p",
+				"Package Control: Install Package"
+			],
+			[
+				"e",
+				"Emmet: Expand Abbreviation"
+			],
+			[
+				"tw",
+				"Set Syntax: HTML (Twig)"
+			],
+			[
+				"pa",
+				"Preferences: Browse Packages"
+			],
+			[
+				"pac",
+				"Preferences: Browse Packages"
+			],
 			[
 				"m",
 				"Set Syntax: Markdown"
@@ -107,10 +644,6 @@
 				"Package Control: Install Package"
 			],
 			[
-				"p",
-				"Package Control: Install Package"
-			],
-			[
 				"ma",
 				"Set Syntax: Markdown"
 			]
@@ -119,9 +652,10 @@
 	},
 	"console":
 	{
-		"height": 125.0,
+		"height": 171.0,
 		"history":
 		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())",
 			"view.lines((4,23))",
 			"view.lines(2)",
 			"view.lines(2,4)",
@@ -164,6 +698,17 @@
 	},
 	"file_history":
 	[
+		"/E/xampp/htdocs/local/fopac/src/FOPAC/ChatBundle/Resources/config/routing.yml",
+		"/E/xampp/htdocs/local/fopac/src/FOPAC/ChatBundle/Resources/views/Chat/index.html.twig",
+		"/E/xampp/htdocs/local/fopac/app/logs/dev.log",
+		"/E/xampp/htdocs/local/fopac/public/assets/js/jquery.timeago.js",
+		"/E/xampp/htdocs/local/fopac/public/assets/css/bootstrap.min.css",
+		"/E/Portable programs/Sublime Text 3/Data/Packages/SideBarEnhancements/CHANGELOG",
+		"/E/xampp/htdocs/local/fopac/.gitignore",
+		"/E/Portable programs/Sublime Text 3/Data/Packages/Package Control/Package Control.sublime-settings",
+		"/E/xampp/htdocs/local/fopac/app/config/routing_dev.yml",
+		"/E/xampp/htdocs/local/fopac/src/Acme/DemoBundle/Controller/DemoController.php",
+		"/E/xampp/htdocs/local/fopac/composer.json",
 		"/E/gandalf/Documents/fantasy mafia.txt",
 		"/E/Portable programs/VLC 2/lua/intf/hotkeys.lua",
 		"/E/Portable programs/VLC 2/lua/intf/rc.lua",
@@ -203,7 +748,6 @@
 		"/E/gandalf/Programming/Ruby/curses/main.rb",
 		"/S/Aj/Poznamky/mat/2007.txt",
 		"/C/Users/ASUS/Desktop/Maturita/test.rb",
-		"/E/Portable programs/Sublime Text 3/Data/Packages/Package Control/Package Control.sublime-settings",
 		"/E/Portable programs/Sublime Text 3/Data/Packages/User/Package Control.sublime-settings",
 		"/E/Portable programs/Sublime Text 3/Data/Packages/User/Preferences.sublime-settings",
 		"/E/gandalf/Programming/Pascal/Prvocislo/Prvocislo.pas",
@@ -214,7 +758,7 @@
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 43.0
 	},
 	"find_in_files":
 	{
@@ -228,6 +772,27 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"firefox",
+			"bottom",
+			"top",
+			"last",
+			"datetime",
+			"Date",
+			"parse",
+			"top",
+			"val",
+			"oldPass",
+			"return",
+			"well-small",
+			"mini",
+			"blockquote>",
+			"-fluid",
+			"href=\"\"",
+			"id",
+			"val",
+			"title",
+			"@",
+			"pre",
 			"name",
 			"#999",
 			"ň",
@@ -249,11 +814,15 @@
 			", "
 		],
 		"highlight": true,
-		"in_selection": true,
+		"in_selection": false,
 		"preserve_case": false,
 		"regex": false,
 		"replace_history":
 		[
+			"bottom",
+			"data",
+			"well well-small",
+			"@ORM\\",
 			"email",
 			"$grayLight",
 			"n",
@@ -286,8 +855,513 @@
 	"groups":
 	[
 		{
+			"selected": 8,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": ".gitignore",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 61,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								61,
+								61
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/config/routing.yml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 243,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								101,
+								101
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/YAML/YAML.tmLanguage",
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/FOPAC/ChatBundle/Entity/Room.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4948,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								844,
+								844
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "src/FOPAC/ChatBundle/Entity/Permit.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3202,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2578,
+								2593
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2801.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "src/FOPAC/ChatBundle/Entity/Message.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2573,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								185,
+								185
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1491.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "src/FOPAC/ChatBundle/Entity/MessageRepository.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 865,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								82,
+								82
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "src/Acme/DemoBundle/Resources/views/layout.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1016,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								384,
+								348
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/Resources/views/base.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 970,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								737,
+								737
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "src/FOPAC/ChatBundle/Resources/views/Static/index.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4642,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2628,
+								2628
+							]
+						],
+						"settings":
+						{
+							"spell_check": true,
+							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 968.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "src/FOPAC/ChatBundle/Resources/views/Chat/index.html.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 17509,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								347,
+								34
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "public/assets/css/main.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1147,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1119,
+								1119
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 108.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "src/FOPAC/ChatBundle/Controller/RoomController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9040,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								888,
+								904
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 311.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "src/FOPAC/ChatBundle/Controller/ChatController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5108,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1895,
+								1895
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 601.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "public/assets/js/jquery.emoji.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8932,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								8621,
+								8621
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "src/FOPAC/ChatBundle/Resources/views/Chat/dll.txt.twig",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 273,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								244,
+								244
+							]
+						],
+						"settings":
+						{
+							"auto_name": "{{ Room }}",
+							"syntax": "Packages/PHP-Twig/Syntaxes/HTML (Twig).tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "app/logs/dev.log",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9100791,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 23.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "vendor/doctrine/orm/lib/Doctrine/ORM/EntityRepository.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8337,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4725,
+								4725
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2873.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "app/logs/prod.log",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14915,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -325,7 +1399,7 @@
 	"project": "fopac.sublime-project",
 	"replace":
 	{
-		"height": 62.0
+		"height": 80.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -333,16 +1407,28 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"pr",
+				"app\\logs\\prod.log"
+			],
+			[
+				"repository",
+				"vendor\\doctrine\\orm\\lib\\Doctrine\\ORM\\EntityRepository.php"
+			],
+			[
+				"git",
+				".gitignore"
+			]
 		],
 		"width": 0.0
 	},
 	"select_project":
 	{
-		"height": 500.0,
+		"height": 625.0,
 		"selected_items":
 		[
 		],
-		"width": 380.0
+		"width": 475.0
 	},
 	"select_symbol":
 	{
@@ -359,7 +1445,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 220.0,
+	"side_bar_width": 213.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

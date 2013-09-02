@@ -1,0 +1,10 @@
+FOPAC - a Free Online Private Chat system
+{{ url('home_page') }}
+
+Room: {{ Room.title }}
+Description: {{ Room.description }}
+Generated on {{ "now"|date() }}.
+
+{% for m in Room.messages %}
+{{ m.createdAt|date('d-m-Y H:i') }} | <{{ m.nickname }}> {{ m.content }}
+{% endfor %}

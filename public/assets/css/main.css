@@ -1,0 +1,70 @@
+/* GLOBAL */
+body {
+	background-color: #0b61a4;
+	padding-top: 20px;
+}
+
+.well, .hero-unit {
+	background-color: white;
+	border: 5px solid #e3e3e3;
+}
+
+.text-justify { 
+	text-align: justify; 
+	word-wrap: wrap-all;
+	-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+}
+
+.alert { word-break: break-all; }
+
+
+/* HOME PAGE */
+.hero-unit img { margin-right: 25px; }
+.logo { margin-right: 10px; }
+
+
+/* CHAT PAGE */
+#managePermits {
+	width: 750px;
+	margin-left: -375px;
+}
+
+ul.nav-list {
+	margin-bottom: 20px;
+}
+
+blockquote { margin-bottom: 0px; }
+
+.message {
+	margin-bottom: 5px;
+	border: 2px solid #e3e3e3;
+}
+
+.mono { font-family: Consolas, Lucida Console, monospace; }
+
+
+/* Message Input Fix */
+.input-prepend.input-append.input-block-level {
+  display: table;
+  width: 100%;
+}
+
+.input-prepend.input-append.input-block-level .add-on {
+  display: table-cell;
+  width: 5%;
+}
+
+.input-prepend.input-append.input-block-level .btn {
+  display: table-cell;
+  width: 10%;
+}
+
+.input-prepend.input-append.input-block-level > input {
+  box-sizing: border-box;
+  height: 30px;
+  display: table-cell;
+  border-left-style: none;
+}

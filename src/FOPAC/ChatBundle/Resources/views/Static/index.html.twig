@@ -1,0 +1,77 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+<style type="text/css">
+	.ie .logo { width: 150px; height: 150px; }
+</style>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="{{ asset('assets/js/sha3.js') }}"></script>
+<script type="text/javascript">
+	$("form").submit(function(event) {
+		event.preventDefault();
+
+		var $form = $( this ),
+		title = $form.find( 'input[name="title"]' ).val().trim(),
+		desc = $form.find( 'textarea[name="desc"]' ).val().trim(),
+		passphrase = $form.find( 'input[name="passphrase"]' ).val().trim(),
+		url = $form.attr( 'action' );
+
+		if (passphrase != '') {
+			passphrase = CryptoJS.SHA3(passphrase, { outputLength: 256 }).toString(CryptoJS.enc.Hex);
+		};
+
+		/* Send the data using post */
+		var posting = $.post( url, {'title': title, 'description': desc, 'passphrase': passphrase});
+
+		/* Put the results in a div */
+		posting.done(function( data ) {
+			if (data['Status'] == 0) {
+				var $h2 = $form.parent().find('h2');
+				var $alert = $('<div class="alert alert-block alert-success"></div>').insertAfter($h2);
+				$alert.append('<button type="button" class="close" data-dismiss="alert">&times;</button>');
+				$alert.append('<h4>Success!</h4>');
+				$alert.append('Your Permit URL with moderatoring rights is <a href="'+data['AuthURL']+'">'
+					         +data['AuthURL']+'</a>. Do not share the URL with others. You will be able create more Permitss to the room in the chat interface.');
+			}
+			var content = $( data ).find( '#content' );
+			$( "#result" ).empty().append( content );
+		});
+	});
+</script>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="hero-unit">
+		<img src="{{ asset('assets/img/logo.png') }}" class="pull-left logo" alt="FOPAC's Logo" width="150px" height="150px" />
+		<h1>FOPAC </h1>
+		<p><strong>FOPAC</strong> <small>['fopak]</small> is a Free Online Private Anonymous Chat system.</p>
+	</div>
+	<div class="row-fluid">
+		<div class="span6 well text-justify">
+			<h2>About FOPAC</h2>
+			<p>FOPAC provides fast and easy-to-setup private chat rooms. After you create a new room, you may generate Permits, a unique access links to your room, which you then may give to desired participants in the communication. All members of the room (except moderators specified by you) can see only 10 characters long randomly generated nicknames. When you don't have a need for the room anymore, you may destroy it along with all messages and permits or just stop using it for a week. All rooms inactive for seven or more days are automatically destroyed. There is no registration.</p>
+			<p>FOPAC is optimized for use in the latest versions of Google Chrome (or most WebKit-based browsers) and Mozilla Firefox. Enabling JavaScript is required and enabling Adobe Flash is recommended.</p>
+			<p>FOPAC is powered by <a href="http://symfony.com/">Symfony 2.3</a>, <a href="http://getbootstrap.com/2.3.2/">Bootstrap 2.3</a>, <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome 3.2</a>, <a href="https://github.com/rafaelp/css_browser_selector">CSS Browser Selector</a>, <a href="https://code.google.com/p/crypto-js/">CryptoJS 3.1</a> and <a href="http://jquery.com/
+">jQuery 1.10</a> with plugins <a href="http://zeroclipboard.org/">ZeroClipboard</a>, <a href="http://timeago.yarp.com/">Timeago</a>, <a href="https://github.com/uudashr/jquery-linkify">Linkify</a> and <a href="https://github.com/linyows/jquery-emoji">Emoji</a>. FOPAC's code base is open-sourced and licensed under <a href="http://opensource.org/licenses/mit-license.php">the MIT License</a>. The source can be found on <a href="https://github.com/gandy93/fopac">GitHub</a>.</p>
+			<p>FOPAC is one man project. Like all one man projects, it is susceptible to errors and shortcomings that were unnoticed by its developer. All bug reports, suggestions, improvements, constructive reviews and questions are more than welcome. You may post them on <a href="https://github.com/gandy93/fopac">GitHub</a> or mail them to <a href="mailto:{{ email }}">{{ email }}</a>.</p>
+			<p>Copyright &copy; 2013 gandy93</p>
+		</div>
+		<div class="span6 well">
+			<h2>Create a new FOPAC room</h2>
+			<p>All fields are optional.</p>
+			<form action="{{ path('create_room') }}">
+				<label>Title</label>
+				<input class="input-block-level" type="text" name="title" />
+				<label>Description</label>
+				<textarea class="input-block-level" rows="5" name="desc"></textarea>
+				<label>Passphrase</label>
+				<input class="input-block-level" type="password" name="passphrase" />
+				<button type="submit" class="btn btn-large btn-block">Create</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
